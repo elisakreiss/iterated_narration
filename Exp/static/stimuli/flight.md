@@ -1,0 +1,4 @@
+On January 15, 2018, a woman (66 years old) without a ticket and passport slipped through airport security and took a flight from Chicago to London. 
+
+The woman entered Chicago O’Hare International Airport on on January 14. First, she hid her face with her hair and passed two Transportation Security Administration officers who were controlling other passenger’s boarding passes. After she was screened, she tried to board a flight to Connecticut but failed. When the woman tried to sneak passed the gate agent, she was stopped and directed to sit down. 
+She stayed overnight at the airport and approached a shuttle bus to the international gate the next day. Even though, a passport and plane ticket are required, she was able to board the shuttle.Then she entered a plane to Heathrow Airport (London), where she was detained by British customs officials. She arrived back in the United States on January 18. The woman is charged with theft and misdemeanor for trespassing.

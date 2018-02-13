@@ -1,0 +1,124 @@
+
+% 
+% Annual Cognitive Science Conference
+% Sample LaTeX Paper -- Proceedings Format
+% 
+
+% Original : Ashwin Ram (ashwin@cc.gatech.edu)       04/01/1994
+% Modified : Johanna Moore (jmoore@cs.pitt.edu)      03/17/1995
+% Modified : David Noelle (noelle@ucsd.edu)          03/15/1996
+% Modified : Pat Langley (langley@cs.stanford.edu)   01/26/1997
+% Latex2e corrections by Ramin Charles Nakisa        01/28/1997 
+% Modified : Tina Eliassi-Rad (eliassi@cs.wisc.edu)  01/31/1998
+% Modified : Trisha Yannuzzi (trisha@ircs.upenn.edu) 12/28/1999 (in process)
+% Modified : Mary Ellen Foster (M.E.Foster@ed.ac.uk) 12/11/2000
+% Modified : Ken Forbus                              01/23/2004
+% Modified : Eli M. Silk (esilk@pitt.edu)            05/24/2005
+% Modified : Niels Taatgen (taatgen@cmu.edu)         10/24/2006
+% Modified : David Noelle (dnoelle@ucmerced.edu)     11/19/2014
+% Modified : Elisa Kreiss (ekreiss@uos.de)    10/10/2016
+
+%% Change ''letterpaper'' in the following line to ''a4paper'' if you must.
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{cogsci}
+\usepackage{pslatex}
+\usepackage{apacite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{url}
+\usepackage{todonotes}
+\usepackage{mathtools}
+\usepackage{stmaryrd}
+\usepackage{booktabs}
+\usepackage{array}
+
+\newcommand{\den}[2][]{
+\(
+\left\llbracket\;\text{#2}\;\right\rrbracket^{#1}
+\)
+}
+
+%\newcommand{\url}[1]{$#1$}
+
+
+\definecolor{Blue}{RGB}{0,0,255}
+\definecolor{Green}{RGB}{10,200,100}
+\definecolor{Red}{RGB}{255,0,0}
+\definecolor{Orange}{RGB}{255,140,0}
+\newcommand{\jd}[1]{\textcolor{Blue}{[jd: #1]}}  
+\newcommand{\rdh}[1]{\textcolor{Red}{[rdh: #1]}}  
+\newcommand{\red}[1]{\textcolor{Red}{#1}}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}
+\newcommand{\ek}[1]{\textcolor{Orange}{[ek: #1]}} 
+
+ \newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
+
+
+\newcommand{\subsubsubsection}[1]{{\em #1}}
+\newcommand{\eref}[1]{(\ref{#1})}
+\newcommand{\tableref}[1]{Table \ref{#1}}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\appref}[1]{Appendix \ref{#1}}
+\newcommand{\sectionref}[1]{Section \ref{#1}}
+
+\title{Influences of Pragmatics on Iterated Narration}
+
+ 
+\author{{\large \bf Elisa Kreiss, Judith Degen, Michael Franke} \\
+  ekreiss@uos.de, jdegen@stanford.edu, mfranke@uos.de\\
+  Department of Psychology, STREET \\
+  Osnabrueck, Germany}
+
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+
+\textbf{Keywords:} 
+keywords
+\end{abstract}
+
+\section{Introduction}
+
+\section{Experiment}
+
+\subsection{Methods}
+
+\subsubsection{Participants}
+We recruited XX participants over Amazon's Mechanical Turk. 
+\ek{say something about payment and duration}\\
+Each participant was given a cover story, i.e., a situation they were to imagine themselves in.
+
+\subsubsection{Materials}
+
+\subsubsection{Design}
+
+\subsection{Procedure}
+
+\subsection{Annotation}
+
+\subsection{Results and discussion}
+
+\section{Discussion and conclusion}
+
+\section{Acknowledgments}
+\small
+
+
+
+\bibliographystyle{apacite}
+
+\setlength{\bibleftmargin}{.125in}
+\setlength{\bibindent}{-\bibleftmargin}
+
+\bibliography{refs}
+
+
+\end{document}

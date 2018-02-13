@@ -1,0 +1,50 @@
+---
+title: "Title (E. Kreiss, J. Degen, M. Franke)"
+output: html_notebook
+---
+## 1. Introduction
+
+If you have any questions or comments related to this work, please consult [Elisa Kreiss](http://www.elisakreiss.com/index.html).
+
+#### 1.1 Abstract
+
+#### 1.2 Further information
+
+For a manuscript, please contact [Elisa Kreiss](http://www.elisakreiss.com).
+
+## 2. Import, clean and categorize empirical data
+
+#### 2.1 Basic setup 
+* import libraries & data, exclude data that cannot be used for analysis
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(bootstrap)
+library(lme4)
+library(tidyr)
+library(here)
+
+theme_set(theme_bw(18))
+source(here("Rscripts","helpers.r"))
+
+# d = read.table(file=here("Data","results.csv"),sep="\t", header=T, quote="")
+
+```
+
+## 3 Plots
+
+#### 3.1 Plot something
+
+## 4 BDA 
+#### 4.1 BDA data preparation
+
+## 4.2 Statistical analysis
+
+```{r}
+# m = glmer(ColorOrType ~ cNormedTypicality + cInformative + cCC + (1|gameid) + (1|Item), data = centered, family="binomial")
+# summary(m)
+# ranef(m)
+
+# anova(m,m.1)
+```

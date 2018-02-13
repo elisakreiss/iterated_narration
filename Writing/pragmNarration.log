@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.1.10)  7 FEB 2018 20:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.1.10)  13 FEB 2018 13:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -696,6 +696,9 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 
+
+LaTeX Warning: Citation `Bartlett:1932' undefined on input line 100.
+
 (./pragmNarration.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
@@ -705,19 +708,23 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
 
 ]
-(./pragmNarration.aux) ) 
+(./pragmNarration.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14262 strings out of 493014
- 275204 string characters out of 6133351
- 310625 words of memory out of 5000000
- 17483 multiletter control sequences out of 15000+600000
+ 14264 strings out of 493014
+ 275234 string characters out of 6133351
+ 315625 words of memory out of 5000000
+ 17485 multiletter control sequences out of 15000+600000
  25822 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,10n,56p,446b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/bas
-e/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on pragmNarration.pdf (1 page, 27570 bytes).
+ 62i,10n,56p,817b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/201
+6/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on pragmNarration.pdf (1 page, 32224 bytes).
 PDF statistics:
  20 PDF objects out of 1000 (max. 8388607)
  14 compressed objects within 1 object stream

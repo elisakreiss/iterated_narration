@@ -28,6 +28,12 @@ $(document).ready(function() {
         window.close();
     });
 
+    // Show full instructions
+    $("#go-specific").click(function() {
+        $("#specific").show();
+        $("#go-specific").hide();
+    });
+
     // Consent to the experiment.
     $("#go-to-experiment").click(function() {
         allow_exit();

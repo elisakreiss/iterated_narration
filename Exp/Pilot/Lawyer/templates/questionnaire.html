@@ -12,11 +12,25 @@
 
     <hr>
 
-    <p>You are finished!  Thank you for your contributions to science. You will be eligible for full payment once you answer the following questions.</p>
+    <p>You are finished! Thank you for your contributions to science. You will be eligible for full payment once you answer the following questions.</p>
 
     <div class="main_div">
 
         <form>
+            <div class="row question">
+                <div class="col-md-8">
+                    Did you read the instructions and do you think you did the HIT correctly?:
+                </div>
+                <div class="col-md-4">
+                    <select id="instr" name="instr">
+                        <option value="42">--</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                        <option value="2">I was confused</option>
+                    </select>
+                </div>
+            </div>
+            <br>
             <div class="row question">
                 <div class="col-md-8">
                     On a scale of 1-10 (where 10 is the most engaged), please rate how <b>ENGAGED</b> you were while performing the task:
@@ -36,18 +50,77 @@
                     </select>
                 </div>
             </div>
-            <!-- <div class="row question">
+            <br>
+            <div class="row question">
                 <div class="col-md-8">
-                    Did you know the story beforehand or was it completely unknown to you?
+                    Native language (the language spoken at home):
                 </div>
                 <div class="col-md-4">
-                    <select id="familiarity" name="familiarity">
-                        <option value="1">I knew the story beforehand.</option>
-                        <option value="42" SELECTED>I'm not sure.</option>
-                        <option value="0">I hadn't heard about it before.</option>
+                    <textarea name="language" rows="1" cols="30"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row question">
+                <div class="col-md-8">
+                    Level of education:
+                </div>
+                <div class="col-md-4">
+                    <select id="edu" name="edu">
+                        <option value="42" SELECTED>--</option>
+                        <option value="0">Some High School</option>
+                        <option value="1">Graduated High School</option>
+                        <option value="2">Some College</option>
+                        <option value="3">Graduated College</option>
+                        <option value="4">Hold a Higher Degree</option>
                     </select>
                 </div>
-            </div> -->
+            </div>
+            <br>
+            <div class="row question">
+                <div class="col-md-8">
+                    Gender:
+                </div>
+                <div class="col-md-4">
+                    <select id="gender" name="gender">
+                        <option value="42" SELECTED>--</option>
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                        <option value="2">Other</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row question">
+                <div class="col-md-8">
+                    Age:
+                </div>
+                <div class="col-md-4">
+                    <textarea name="age" rows="1" cols="30"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row question">
+                <div class="col-md-8">
+                    Did you enjoy the HIT?
+                </div>
+                <div class="col-md-4">
+                    <select id="enjoy" name="enjoy">
+                        <option value="42" SELECTED>--</option>
+                        <option value="0">Worse than the Average HIT</option>
+                        <option value="1">Average HIT</option>
+                        <option value="2">Better than the Average HIT</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row question">
+                <div class="col-md-8">
+                    We would be interested in any comments you have about this experiment. Please type them here:
+                </div>
+                <div class="col-md-4">
+                    <textarea name="comments" rows="3" cols="30"></textarea>
+                </div>
+            </div>
         </form>
     </div>
 

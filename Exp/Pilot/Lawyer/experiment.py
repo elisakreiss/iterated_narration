@@ -52,8 +52,8 @@ class PragNarration(Experiment):
     def create_network(self):
         """Return a new network."""
         """Sets maximum number of reproductions/length of the chain; 
-        if set to 3, then it stops after 2 reproductions"""
-        return Chain(max_size=3)
+        if set to 6, then it stops after 5 participants/reproductions"""
+        return Chain(max_size=6)
 
     def add_node_to_network(self, node, network):
         """Add node to the chain and receive transmissions."""

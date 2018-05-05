@@ -1,0 +1,3 @@
+id,creation_time,property1,property2,property3,property4,property5,failed,time_of_death,vector_id,info_id,origin_id,destination_id,network_id,receive_time,status
+1,2018-04-15 13:39:04.593791,,,,,,f,,1,1,1,2,1,2018-04-15 13:39:04.604586,received
+2,2018-04-15 13:43:28.582096,,,,,,f,,2,2,2,3,1,2018-04-15 13:43:28.589873,received

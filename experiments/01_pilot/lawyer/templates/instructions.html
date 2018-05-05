@@ -1,0 +1,44 @@
+<head>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/dallinger.css" type="text/css">
+    <script src="/static/scripts/store+json2.min.js" type="text/javascript"> </script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/static/scripts/reqwest.min.js" type="text/javascript"> </script>
+    <script src="/static/scripts/dallinger.js" type="text/javascript"> </script>
+    <script src="/static/scripts/experiment.js" type="text/javascript"> </script>
+</head>
+
+<div class="main_div">
+
+    <script>
+        create_participant();
+    </script>
+
+    <h1>Instructions</h1>
+
+    <hr>
+
+    <div id="general">
+        <p>In this experiment you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original.</p>
+    </div>
+    <button type="button" id="go-specific" class="btn btn-primary">Next</button>
+
+    <div id="specific" style="display:none;">
+        <div>
+            <br>
+            <p>Imagine you are an intern in a <strong>lawyer’s office</strong>. Your boss likes to stay up-to-date about potentially interesting or groundbreaking cases. Your task is to go through crime reports and brief your boss on the contents.</p>
+
+            <!-- <p>Imagine you are at a <strong>friend’s birthday party</strong> and your friend suggests playing a game called “Story Time”. Everyone gets crime reports of real events and needs to retell the story in the most entertaining way possible. After every round, everyone votes for the best storyteller, who then receives a point. The person with the most points wins the game. Please don’t take notes!</p> -->
+
+            <!-- <p>In this experiment, you will read crime reports of real events. Your task is to read these reports carefully and then retell them as accurately as possible. Please don’t take notes!</p> -->
+        </div>
+        <div class="row">
+            <div class="col-xs-10"></div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-success btn-lg" onClick="allow_exit();go_to_page('exp');">
+                Begin</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

@@ -1,0 +1,5 @@
+id,creation_time,property1,property2,property3,property4,property5,failed,time_of_death,vector_id,info_id,origin_id,destination_id,network_id,receive_time,status
+1,2018-05-06 12:37:51.525552,,,,,,f,,1,1,1,2,1,2018-05-06 12:37:51.533093,received
+2,2018-05-06 12:38:08.82583,,,,,,f,,2,2,2,3,1,2018-05-06 12:38:08.829483,received
+3,2018-05-06 12:38:25.156207,,,,,,f,,3,3,3,4,1,2018-05-06 12:38:25.1599,received
+4,2018-05-06 12:38:47.654185,,,,,,f,,4,4,4,5,1,2018-05-06 12:38:47.661217,received

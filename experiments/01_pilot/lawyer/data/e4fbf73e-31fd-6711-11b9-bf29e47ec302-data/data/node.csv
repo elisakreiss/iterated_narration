@@ -1,0 +1,5 @@
+id,creation_time,property1,property2,property3,property4,property5,failed,time_of_death,type,network_id,participant_id
+1,2018-05-06 12:34:57.876549,,,,,,f,,crime_reports_source,1,
+2,2018-05-06 12:35:06.820949,,,,,,f,,node,1,1
+3,2018-05-06 12:35:25.123502,,,,,,f,,node,1,2
+4,2018-05-06 12:35:42.436863,,,,,,f,,node,1,3

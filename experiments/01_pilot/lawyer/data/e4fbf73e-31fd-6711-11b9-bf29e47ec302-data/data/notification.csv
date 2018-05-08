@@ -1,0 +1,4 @@
+id,creation_time,property1,property2,property3,property4,property5,failed,time_of_death,assignment_id,event_type
+1,2018-05-06 12:35:19.440195,,,,,,f,,debugQBS8G7,AssignmentSubmitted
+2,2018-05-06 12:35:36.2427,,,,,,f,,debugDLTQOR,AssignmentSubmitted
+3,2018-05-06 12:35:52.05759,,,,,,f,,debug11Q6V5,AssignmentSubmitted

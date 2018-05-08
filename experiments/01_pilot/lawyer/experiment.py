@@ -55,6 +55,7 @@ class PragNarration(Experiment):
         if set to 6, then it stops after 5 participants/reproductions"""
         # return Chain(max_size=6)
         # For pre-pilot:
+        # return Chain(max_size=3)
         return Chain(max_size=3)
 
     def add_node_to_network(self, node, network):

@@ -79,11 +79,14 @@ $(document).ready(function() {
                 create_agent();
             }
         });
+
     });
 
     // Submit the questionnaire.
     $("#submit-questionnaire").click(function() {
         submitResponses();
+        console.log("log this stuff");
+        console.log(dallinger.models.Participant.all_questions);
     });
 });
 

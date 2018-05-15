@@ -1,4 +1,4 @@
-# Ideas for non-dallinger solution
+# Ideas for _babe solution
 
 ### Status file
 = a file that is necessary to ensure iterated MTurk recruitment
@@ -16,3 +16,6 @@
 	- 5 chains per seed
 	- 5 generations per chain
 
+## Cheap pilot
+- seeds: Bartlett ghost story, 2 of our seeds
+- Abfrage kurz vor submit again, "is my spot already taken?"

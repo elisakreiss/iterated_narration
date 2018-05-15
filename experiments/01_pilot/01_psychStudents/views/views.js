@@ -29,9 +29,9 @@ var instructions = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
-    "text": "On each trial, you will see a question and two response options. Please select the response option you like most. We start with two practice trials.",
+    "text": "In each of the three trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original.",
     // instuction's slide proceeding button text
-    "buttonText": "Go to practice trial",
+    "buttonText": "Let's go!",
     render: function() {
 
         viewTemplate = $("#instructions-view").html();
@@ -50,72 +50,37 @@ var instructions = {
     trials: 1
 }
 
-var practice = {
-    "title": "Practice trial",
-    render: function (CT) {
-
-		viewTemplate = $("#practice-view").html();
-        $('#main').html(Mustache.render(viewTemplate, {
-        title: this.title,
-        question: exp.trial_info.practice_trials[CT].question,
-        option1: exp.trial_info.practice_trials[CT].option1,
-        option2: exp.trial_info.practice_trials[CT].option2,
-        picture: exp.trial_info.practice_trials[CT].picture
-        }));
-        startingTime = Date.now();
-        // attaches an event listener to the yes / no radio inputs
-        // when an input is selected a response property with a value equal to the answer is added to the trial object
-        // as well as a readingTimes property with value - a list containing the reading times of each word
-        $('input[name=answer]').on('change', function() {
-            RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
-                trial_type: "practice",
-                trial_number: CT+1,
-                question: exp.trial_info.practice_trials[CT].question,
-                option1: exp.trial_info.practice_trials[CT].option1,
-                option2: exp.trial_info.practice_trials[CT].option2,
-                option_chosen: $('input[name=answer]:checked').val(),
-                RT: RT
-            };
-            exp.trial_data.push(trial_data)
-            exp.findNextView();
-        });
-
-    },
-    trials: 2
-}
-
-var beginMainExp = {
-    "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
-    render: function() {
-
-        viewTemplate = $('#begin-exp-view').html();
-        $('#main').html(Mustache.render(viewTemplate, {
-            text: this.text
-        }));
-
-        // moves to the next view
-        $('#next').on('click', function(e) {
-            exp.findNextView();
-        });
-
-    },
-    trials: 1
-}
 
 var main = {
 	
-	trials : 2,
+	trials : 3,
 	
     render : function(CT) {
+
+        function show(obj) {
+            $("#"+obj).css({"visibility": "visible"});
+
+            if (obj=="next"){
+                $("#"+obj).css({"display": "block"});
+            } else {
+                $("#"+obj).css({"display": "inline"});
+            }
+        };
+
+        function hide(obj) {
+            $("#"+obj).css({"visibility": "hidden"});
+            $("#"+obj).css({"display": "none"});
+        };  
+
+        var recap_instruction = "After you read the story, press 'Ready'. Use the upcoming text field to reproduce the story, as best as you can. Then press 'Done'.";
 		
 		// fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
-            question: exp.trial_info.main_trials[CT].question,
-            option1:  exp.trial_info.main_trials[CT].option1,
-            option2:  exp.trial_info.main_trials[CT].option2,
-            picture:  exp.trial_info.main_trials[CT].picture
+            recap_instruction: recap_instruction,
+            story:    exp.trial_info.main_trials[CT].story,
+            button1:  "Ready!",
+            button2:  "Done!"
         }));
 		
 		// update the progress bar based on how many trials there are in this round
@@ -123,22 +88,30 @@ var main = {
         $('#filled').css('width', filled);
 
         // event listener for buttons; when an input is selected, the response
+        // and additional information are stored in exp.trial_info
+        $('#start_repro').on('click', function(e) {
+            hide("story");
+            hide("start_repro");
+            show("reproduction");
+            show("next");
+            // $("reproduction").focus();
+        }); 
+
+        // event listener for buttons; when an input is selected, the response
 		// and additional information are stored in exp.trial_info
-        $('input[name=answer]').on('change', function() {
+        $('#next').on('click', function(e) {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
-                trial_type: "mainForcedChoice",
+                trial_type: "reproductionDemo",
                 trial_number: CT + 1,
-                question: exp.trial_info.main_trials[CT].question,
-                option1:  exp.trial_info.main_trials[CT].option1,
-                option2:  exp.trial_info.main_trials[CT].option2,
-                option_chosen: $('input[name=answer]:checked').val(),
-                RT: RT
+                story: exp.trial_info.main_trials[CT].title,
+                reproduction: $('#reproduction').val(),
+                // RT: RT
             };
             exp.trial_data.push(trial_data);
             exp.findNextView();
-        });
-		
+        }); 
+        
         // record trial starting time
         startingTime = Date.now();
 		

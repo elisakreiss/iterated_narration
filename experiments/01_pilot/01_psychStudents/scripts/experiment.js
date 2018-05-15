@@ -8,16 +8,13 @@ exp.customize = function() {
     // specify view order
     this.views_seq = [intro, 
 					 instructions,
-                     practice,
-                     beginMainExp,
 					 main,
                      postTest,
                      thanks];
 	
     // prepare information about trials (procedure)
 	// randomize main trial order, but keep practice trial order fixed
-    this.trial_info.main_trials = _.shuffle(main_trials.concat(practice_trials))
-	this.trial_info.practice_trials = practice_trials
+    this.trial_info.main_trials = _.shuffle(main_trials)
 	
 };
 

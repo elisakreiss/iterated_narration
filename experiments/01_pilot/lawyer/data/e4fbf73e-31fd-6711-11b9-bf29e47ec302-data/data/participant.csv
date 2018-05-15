@@ -1,4 +1,0 @@
-id,creation_time,property1,property2,property3,property4,property5,failed,time_of_death,type,worker_id,assignment_id,unique_id,hit_id,mode,end_time,base_pay,bonus,status
-1,2018-05-06 12:35:04.304529,,,,,,f,,participant,1,debugQBS8G7,1:debugQBS8G7,WX3QDZ,debug,2018-05-06 12:35:19.44503,1,0,approved
-2,2018-05-06 12:35:23.120125,,,,,,f,,participant,2,debugDLTQOR,2:debugDLTQOR,6IVJGE,debug,2018-05-06 12:35:36.246597,1,0,approved
-3,2018-05-06 12:35:40.341363,,,,,,f,,participant,3,debug11Q6V5,3:debug11Q6V5,D50G84,debug,2018-05-06 12:35:52.061394,1,0,approved

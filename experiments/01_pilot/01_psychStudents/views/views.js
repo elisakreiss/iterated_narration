@@ -57,66 +57,88 @@ var main = {
 	
     render : function(CT) {
 
-        function show(obj) {
-            $("#"+obj).css({"visibility": "visible"});
-
-            if (obj=="next"){
-                $("#"+obj).css({"display": "block"});
-            } else {
-                $("#"+obj).css({"display": "inline"});
-            }
-        };
-
-        function hide(obj) {
-            $("#"+obj).css({"visibility": "hidden"});
-            $("#"+obj).css({"display": "none"});
-        };  
-
-        var recap_instruction = "After you read the story, press 'Ready!'. Use the upcoming text field to reproduce the story, as best as you can. Then press 'Done!'.";
+		var retrieved_data = "huhu"
 		
-        // [[1]]
-
-		// fill variables in view-template
-        var viewTemplate = $('#main-view').html();
-        $('#main').html(Mustache.render(viewTemplate, {
-            recap_instruction: recap_instruction,
-            story:    exp.trial_info.main_trials[CT].story,
-            button1:  "Ready!",
-            button2:  "Done!"
-        }));
+		$.ajax({
+				type: 'GET',
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/1",
+				crossDomain: true,
+				success: function (responseData, textStatus, jqXHR) {
+					$("#datacontainer").text(JSON.stringify(responseData));
+					retrieved_data = JSON.stringify(responseData);
+//					console.log(JSON.stringify(responseData))
+					callback(retrieved_data)
+				}
+			  });
 		
-		// update the progress bar based on how many trials there are in this round
-        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
-        $('#filled').css('width', filled);
-
-        // event listener for buttons; when an input is selected, the response
-        // and additional information are stored in exp.trial_info
-        $('#start_repro').on('click', function(e) {
-            hide("story");
-            hide("start_repro");
-            show("reproduction");
-            show("next");
-            // $("reproduction").focus();
-        }); 
-
-        // event listener for buttons; when an input is selected, the response
-		// and additional information are stored in exp.trial_info
-        $('#next').on('click', function(e) {
-            // RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
-                trial_type: "reproductionDemo",
-                trial_number: CT + 1,
-                story: exp.trial_info.main_trials[CT].title,
-                reproduction: $('#reproduction').val(),
-                // RT: RT
-            };
-            exp.trial_data.push(trial_data);
-            exp.findNextView();
-        }); 
-        
-        // record trial starting time
-        startingTime = Date.now();
+		function callback(rd) {
+			
+			retrieved_data = rd	
 		
+			console.log(rd)
+			
+			function show(obj) {
+				$("#"+obj).css({"visibility": "visible"});
+
+				if (obj=="next"){
+					$("#"+obj).css({"display": "block"});
+				} else {
+					$("#"+obj).css({"display": "inline"});
+				}
+			};
+
+			function hide(obj) {
+				$("#"+obj).css({"visibility": "hidden"});
+				$("#"+obj).css({"display": "none"});
+			};  
+
+			var recap_instruction = "After you read the story, press 'Ready!'. Use the upcoming text field to reproduce the story, as best as you can. Then press 'Done!'.";
+
+			// [[1]]
+
+	//		console.log(this.retrieved_data.responseJSON)
+
+			// fill variables in view-template
+			var viewTemplate = $('#main-view').html();
+			$('#main').html(Mustache.render(viewTemplate, {
+				recap_instruction: recap_instruction,
+				story:    exp.trial_info.main_trials[CT].story,
+				button1:  "Ready!",
+				button2:  "Done!"
+			}));
+
+			// update the progress bar based on how many trials there are in this round
+			var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
+			$('#filled').css('width', filled);
+
+			// event listener for buttons; when an input is selected, the response
+			// and additional information are stored in exp.trial_info
+			$('#start_repro').on('click', function(e) {
+				hide("story");
+				hide("start_repro");
+				show("reproduction");
+				show("next");
+				// $("reproduction").focus();
+			}); 
+
+			// event listener for buttons; when an input is selected, the response
+			// and additional information are stored in exp.trial_info
+			$('#next').on('click', function(e) {
+				// RT = Date.now() - startingTime; // measure RT before anything else
+				trial_data = {
+					trial_type: "reproductionDemo",
+					trial_number: CT + 1,
+					story: exp.trial_info.main_trials[CT].title,
+					reproduction: $('#reproduction').val(),
+					// RT: RT
+				};
+				exp.trial_data.push(trial_data);
+				exp.findNextView();
+			}); 
+
+			// record trial starting time
+			startingTime = Date.now();
+		}
     }
 };
 

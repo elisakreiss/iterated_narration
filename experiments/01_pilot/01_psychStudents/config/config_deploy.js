@@ -3,15 +3,15 @@ var config_deploy = {
     // obligatory fields
 	
     // needed to recover data from server app
-    "author": "RandomJane",
+//    "author": "EK",
     // needed to recover data from server app
-    "experiment_id": "MinimalTemplateDEMO", 
-    "description": "A minimal template for a browser-based experiment",
+//    "experiment_id": "IteratedNarration", 
+//    "description": "IteratedNarrationPilot",
 
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    "deployMethod" : "debug", 
+    "deployMethod" : "directLink", 
     
     // optional fields
     

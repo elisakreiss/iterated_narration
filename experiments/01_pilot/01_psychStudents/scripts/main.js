@@ -215,8 +215,8 @@ exp.submit = function() {
     // the results are displayed on the thanks slide
     if (config_deploy.liveExperiment) {
         console.log('submits');
-        submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
-//		submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
+//        submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
+		submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
 		console.log(data)

@@ -2,7 +2,7 @@ var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will see pictures and click on buttons.",
+    "text": "Thank you for participating in our study. In this study, you will read three stories and are asked to reproduce them as accurately as you can.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
@@ -72,8 +72,10 @@ var main = {
             $("#"+obj).css({"display": "none"});
         };  
 
-        var recap_instruction = "After you read the story, press 'Ready'. Use the upcoming text field to reproduce the story, as best as you can. Then press 'Done'.";
+        var recap_instruction = "After you read the story, press 'Ready!'. Use the upcoming text field to reproduce the story, as best as you can. Then press 'Done!'.";
 		
+        // [[1]]
+
 		// fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
@@ -100,7 +102,7 @@ var main = {
         // event listener for buttons; when an input is selected, the response
 		// and additional information are stored in exp.trial_info
         $('#next').on('click', function(e) {
-            RT = Date.now() - startingTime; // measure RT before anything else
+            // RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "reproductionDemo",
                 trial_number: CT + 1,

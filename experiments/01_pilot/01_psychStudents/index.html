@@ -76,7 +76,7 @@
 			{{/ title }}
 			{{# text }}
 			<section class="text-container">
-				<p class="text">{{ text }}</p>
+				<p class="text">{{{ text }}}</p>
 			</section>
 			{{/ text }}
 			{{# button }}
@@ -96,14 +96,14 @@
 			</div>
 			<div class="clearfix"></div>
 			<section class="text-container">
-				<p class="text"><i>{{ recap_instruction }}</i></p>
+				<!-- <p class="text"><i>{{ recap_instruction }}</i></p> -->
+				<p class="help-text">{{ recap_instruction }}</p>
 			</section>
-			<!-- <div class="picture", align = "center">
-				<img src={{picture}} alt="a picture" height="100" width="100">
-			</div> -->
 			<br>
 
+
 			<section class="text-container">
+				<!-- <p class="text frame" id="story">{{ story }}</p> -->
 				<p class="text" id="story">{{ story }}</p>
 			</section>
 
@@ -112,16 +112,8 @@
 			{{/ button1 }}
 
 			<p class="answer-container">
-				<textarea rows="12" cols="80" id="reproduction" style="visibility: hidden" placeholder="Please, insert your answer here."></textarea> <br>
+				<textarea rows="12" cols="60" id="reproduction" placeholder="Please, insert your answer here."></textarea> <br>
 			</p>
-
-			<!-- <p class="answer-container">
-				<textarea rows="12" cols="80" id="reproduction" style="visibility: hidden">Some default text.</textarea> <br>
-				<label for="yes" class="button-answer">{{ option1 }}</label>
-				<input type="radio" name="answer" id="yes" value={{ option1 }} />
-				<input type="radio" name="answer" id="no" value={{ option2 }} />
-				<label for="no" class="button-answer">{{option2}}</label>
-			</p> -->
 
 			{{# button2 }}
 			<button style="visibility: hidden" id="next">{{ button2 }}</button>

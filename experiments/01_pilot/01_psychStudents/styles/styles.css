@@ -77,6 +77,15 @@ button:focus {
     background-color: #324D93;
 }
 
+.grey {
+    color: "grey";
+}
+
+.frame {
+    border-style: groove;
+    padding: 10px;
+}
+
 .progress-bar-container {
     float: right;
     margin: 0 10px 30px 10px;
@@ -224,7 +233,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .help-text {
     font-style: italic;
-    text-align: center;
+    text-align: left;
     color: #555;
 }
 
@@ -304,6 +313,11 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .debug-results {
     overflow-x: scroll;
+}
+
+#reproduction {
+    visibility: hidden; 
+    font-size: 15px;
 }
 
 #debugresults {

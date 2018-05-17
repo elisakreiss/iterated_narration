@@ -101,12 +101,9 @@
 			</section>
 			<br>
 
-			<div id="datacontainer" style="visibility:hidden;display:none">
-			</div>
-
 			<section class="text-container">
 				<!-- <p class="text frame" id="story">{{ story }}</p> -->
-				<p class="text" id="story">{{ story }}</p>
+				<p class="text" id="story_text">{{ story_text }}</p>
 			</section>
 
 			{{# button1 }}
@@ -137,26 +134,12 @@
 			{{/ text }}
 			<form>
 				<p>
+					<label for="student_id" name="student_id">Student-ID: <br /></label>
+					<input type="text" id="student_id"/>
+				</p>
+				<p>
 					<label for="age">Age:</label>
 					<input type="number" name="age" min="18" max="110" id="age" />
-				</p>
-				<p>
-					<label for="gender">Gender:</label>
-					<select id="gender" name="gender">
-						<option></option>
-						<option value="male">male</option>
-						<option value="female">female</option>
-						<option value="other">other</option>
-					</select>
-				</p>
-				<p>
-					<label for="education">Level of Education:</label>
-					<select id="education" name="education">
-						<option></option>
-						<option value="graduated_high_school">Graduated High School</option>
-						<option value="graduated_college">Graduated College</option>
-						<option value="higher_degree">Higher Degree</option>
-					</select>
 				</p>
 				<p>
 					<label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
@@ -164,8 +147,7 @@
 				</p>
 				<p class="comment-sect">
 					<label for="comments">Further comments</label>
-					<textarea name="comments" id="comments"
-					rows="6" cols="40"></textarea>
+					<textarea name="comments" id="comments" rows="6" cols="40"></textarea>
 				</p>
 				{{# buttonText }}
 				<button id="next">{{ buttonText }}</button>

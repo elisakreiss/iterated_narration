@@ -133,6 +133,16 @@ var main = {
               return chain_id;
             };
 
+            function initiate_chain() {
+                var new_chain = {
+                    chain: make_chainid(),
+                    generation: 0,
+                    deadend: false,
+                    reproduction: exp.trial_info.main_trials[CT].text
+                };
+                return new_chain;
+            };
+
 
             // 
             // Decide on stimulus to show; define chain and generation
@@ -178,14 +188,15 @@ var main = {
                     }
                 };
 
-                // add one new seed to chain_ends to enable the creation of new chains even when others are still open
-                var new_chain = {
-                    chain: make_chainid(),
-                    generation: 0,
-                    deadend: false,
-                    reproduction: exp.trial_info.main_trials[CT].text
-                };
-                chain_ends.push(new_chain);
+                // add new seed to chain_ends to enable the creation of new chains even when others are still open
+                // for early cases where there are 4 or less chains, add 5 initial chains; later just one
+                if (chain_ends.length <= 4) {
+                    for (var initial=0; initial<5; initial++) {
+                        chain_ends.push(initiate_chain());
+                    }
+                } else {
+                    chain_ends.push(initiate_chain());
+                }
 
                 console.log("chain_ends");
                 console.log(chain_ends);

@@ -186,8 +186,10 @@ var main = {
                     reproduction: exp.trial_info.main_trials[CT].text
                 };
                 chain_ends.push(new_chain);
-                console.log("chain_ends down here");
+
+                console.log("chain_ends");
                 console.log(chain_ends);
+                
                 // choose chain_end that will be continued here
                 var shuffled = _.shuffle(chain_ends);
                 var found_chainend = false;
@@ -257,6 +259,10 @@ var main = {
 			// event listener for buttons; when an input is selected, the response
 			// and additional information are stored in exp.trial_info
 			$('#next').on('click', function(e) {
+
+                $('#next').html('Sending...');
+                $('#next').prop('disabled', true);
+
                 if (state == "error") {
                     trial_data = {
                         trial_type: "reproductionDemo",
@@ -269,8 +275,8 @@ var main = {
                         deadend: false,
                         chain: chain,
                         generation: generation,
-                        RT_main: "NA",
-                        RT_submit: "NA"
+                        LoadT_main: "NA",
+                        LoadT_submit: "NA"
                     };
                     exp.trial_data.push(trial_data);
                     exp.findNextView();
@@ -318,8 +324,8 @@ var main = {
                             deadend: deadend,
                             chain: chain,
                             generation: generation,
-                            RT_main: endingTimeMain - startingTimeMain,
-                            RT_submit: endingTimeSubmit - startingTimeSubmit
+                            LoadT_main: endingTimeMain - startingTimeMain,
+                            LoadT_submit: endingTimeSubmit - startingTimeSubmit
                         };
                         console.log("trial_data");
                         console.log(trial_data);

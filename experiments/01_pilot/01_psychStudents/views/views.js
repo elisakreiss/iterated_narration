@@ -47,6 +47,7 @@ var instructions = {
 
         // moves to the next view
         $('#next').on('click', function(e) {
+            // due to loading times, disable button so experiment can't be advanced until last slide just here
             $('#next').html('Loading...');
             $('#next').prop('disabled', true);
             exp.findNextView();
@@ -66,8 +67,10 @@ var main = {
         // record first database load starting time
         var startingTimeMain = Date.now();
 
+        // max generations per chains (generation_max becomes deadend)
         var generation_max = 3;
 
+        // data from database
 		var retrieved_data;
 		
 		$.ajax({
@@ -75,13 +78,12 @@ var main = {
 				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
-					// retrieved_data = JSON.stringify(responseData);
                     retrieved_data = responseData;
 					callback("success");
 				},
                 statusCode: {
                     404: function() {
-                        // alert( "page not found" );
+                        console.log("404 error occurred, possibly due to empty database.")
                         callback("error");
                     }
                 }
@@ -92,7 +94,7 @@ var main = {
             // record first database load ending time
             var endingTimeMain = Date.now();
 
-            console.log(state);
+            console.log("retrieved_data");
             console.log(retrieved_data);
 			
             // 
@@ -113,7 +115,7 @@ var main = {
 				$("#"+obj).css({"display": "none"});
 			};  
 
-            // returns true if chain number is already in chain_ends, otherwise false
+            // returns chain_end if chain number is already in chain_ends
             function checkChainPresence(chain) {
                 for (var chain_end=0; chain_end<chain_ends.length; chain_end++) {
                     if (chain == chain_ends[chain_end]["chain"]) {
@@ -133,6 +135,7 @@ var main = {
               return chain_id;
             };
 
+            // create and return a new chain with initial seed
             function initiate_chain() {
                 var new_chain = {
                     chain: make_chainid(),
@@ -148,18 +151,21 @@ var main = {
             // Decide on stimulus to show; define chain and generation
             // 
             var story_kind = exp.trial_info.main_trials[CT].title;
+            // to save available chain_ends from database
             var chain_ends = [];
             var chain;
             var generation;
             var story_text;
 
+            // if database was accessible (i.e., non-empty)
             if (state == 'success') {
-
+                // database is structured in one array for each participant that yields one object for each trial
+                // go through all trials
                 for (var participant=0; participant<retrieved_data.length; participant++){
                     for (var trial=0; trial<retrieved_data[participant].length; trial++){
 
                         var current_trial = retrieved_data[participant][trial];
-
+                        // if it is a trial with the wanted story
                         if (current_trial["story_title"] == story_kind) {
 
                             var new_chain_end = {
@@ -171,7 +177,7 @@ var main = {
 
                             var pos_in_chain_ends = checkChainPresence(current_trial["chain"]);
 
-                            // if chain not yet in chain_ends, append
+                            // if chain not yet in chain_ends, add it
                             if (pos_in_chain_ends == "not there") {
                                 chain_ends.push(new_chain_end);
                             } else {
@@ -201,7 +207,7 @@ var main = {
                 console.log("chain_ends");
                 console.log(chain_ends);
                 
-                // choose chain_end that will be continued here
+                // choose chain_end that will be continued with this participant
                 var shuffled = _.shuffle(chain_ends);
                 var found_chainend = false;
 
@@ -211,6 +217,8 @@ var main = {
                         var current_chainend = shuffled[chain_end];
                         // each chain_end is acceptable that is not a deadend
                         if (current_chainend["deadend"]==false) {
+                            console.log("chain_end");
+                            console.log(chain_end);
                             found_chainend = true;
 
                             story_text = current_chainend["reproduction"];
@@ -231,7 +239,6 @@ var main = {
                 }
             // else (if ajax GET call throws 404 error, because, e.g., the database doesn't exist yet, create new chain)
             } else {
-                console.log("error was thrown");
                 story_text = exp.trial_info.main_trials[CT].text;
                 chain = make_chainid();
                 generation = 1;
@@ -263,17 +270,17 @@ var main = {
                 hide("start_repro");
                 show("reproduction");
                 show("next");
-                $('#next').focus(); // you want to delete this before deploying this experiment
-                // $("reproduction").focus();
+                $('#next').focus(); // you want to comment this out before deploying this experiment
             }); 
 
 			// event listener for buttons; when an input is selected, the response
 			// and additional information are stored in exp.trial_info
 			$('#next').on('click', function(e) {
-
+                // due to loading times, disable button so experiment can't be advanced until last slide just here
                 $('#next').html('Sending...');
                 $('#next').prop('disabled', true);
 
+                // if error occurred (i.e., the database is empty), initiate new chain; loading times are meaningless here
                 if (state == "error") {
                     trial_data = {
                         trial_type: "reproductionDemo",
@@ -281,8 +288,6 @@ var main = {
                         story_title: story_kind,
                         story_text: story_text,
                         reproduction: $('#reproduction').val(),
-
-                        // this is just default for now, you need to change this!
                         deadend: false,
                         chain: chain,
                         generation: generation,
@@ -297,6 +302,8 @@ var main = {
 
                     var retrieved_data2;
             
+                    // check, if someone submited this exact coninuation in the meantime
+                    // NOTE: you might want to do that in the very end (after all trials) again
                     $.ajax({
                             type: 'GET',
                             url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
@@ -409,6 +416,9 @@ var thanks = {
             console.log('no such config_deploy.deployMethod');
         }
 
+        // maybe add check here
+        console.log("exp.trial_data");
+        console.log(exp.trial_data);
         exp.submit();
 
     },

@@ -280,78 +280,20 @@ var main = {
                 $('#next').html('Sending...');
                 $('#next').prop('disabled', true);
 
-                // if error occurred (i.e., the database is empty), initiate new chain; loading times are meaningless here
-                if (state == "error") {
-                    trial_data = {
-                        trial_type: "reproductionDemo",
-                        trial_number: CT + 1,
-                        story_title: story_kind,
-                        story_text: story_text,
-                        reproduction: $('#reproduction').val(),
-                        deadend: false,
-                        chain: chain,
-                        generation: generation,
-                        LoadT_main: "NA",
-                        LoadT_submit: "NA"
-                    };
-                    exp.trial_data.push(trial_data);
-                    exp.findNextView();
-                } else {
-                    // record second database load starting time
-                    var startingTimeSubmit = Date.now();      
-
-                    var retrieved_data2;
-            
-                    // check, if someone submited this exact coninuation in the meantime
-                    // NOTE: you might want to do that in the very end (after all trials) again
-                    $.ajax({
-                            type: 'GET',
-                            url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
-                            crossDomain: true,
-                            success: function (responseData, textStatus, jqXHR) {
-                                // retrieved_data = JSON.stringify(responseData);
-                                retrieved_data2 = responseData;
-                                callback2(retrieved_data2);
-                            }
-                          });
-                    
-                    function callback2(rd) {
-
-                        // record second database load starting time
-                        var endingTimeSubmit = Date.now(); 
-
-                        var deadend = false;
-
-                        for (var participant=0; participant<retrieved_data.length; participant++){
-                            for (var trial=0; trial<retrieved_data[participant].length; trial++){
-
-                                var db_trial = retrieved_data[participant][trial];
-                                // if story, chain and generation are the same, set deadend to false, since someone has submitted this in the meantime already
-                                if (((db_trial["story_title"] == story_kind) & (db_trial["chain"] == chain) & (db_trial["generation"] == generation)) || (generation == generation_max)) {
-                                    deadend = true;
-                                }
-                            }
-                        }
-
-                        trial_data = {
-                            trial_type: "reproductionDemo",
-                            trial_number: CT + 1,
-                            story_title: story_kind,
-                            story_text: story_text,
-                            reproduction: $('#reproduction').val(),
-                            deadend: deadend,
-                            chain: chain,
-                            generation: generation,
-                            LoadT_main: endingTimeMain - startingTimeMain,
-                            LoadT_submit: endingTimeSubmit - startingTimeSubmit
-                        };
-                        console.log("trial_data");
-                        console.log(trial_data);
-                        exp.trial_data.push(trial_data);
-                        exp.findNextView();
-                        
-                    };
-                }
+                // 
+                trial_data = {
+                    trial_type: "reproductionDemo",
+                    trial_number: CT + 1,
+                    story_title: story_kind,
+                    story_text: story_text,
+                    reproduction: $('#reproduction').val(),
+                    deadend: false,
+                    chain: chain,
+                    generation: generation,
+                    LoadT_main: endingTimeMain-startingTimeMain
+                };
+                exp.trial_data.push(trial_data);
+                exp.findNextView();
 			}); 
 		}
     }
@@ -371,6 +313,9 @@ var postTest = {
         }));
 
         $('#next').on('click', function(e) {
+            // due to loading times, disable button so experiment can't be advanced until last slide just here
+            $('#next').html('Sending...');
+            $('#next').prop('disabled', true);
             // prevents the form from submitting
             e.preventDefault();
 
@@ -394,32 +339,94 @@ var thanks = {
     "message": "Thank you for taking part in this experiment!",
     render: function() {
 
-        viewTemplate = $('#thanks-view').html();
+        // record second database load starting time
+        var startingTimeSubmit = Date.now();      
 
-        // what is seen on the screen depends on the used deploy method
-		//    normally, you do not need to modify this
-        if ((config_deploy.is_MTurk) || (config_deploy.deployMethod === 'directLink')) {
-            // updates the fields in the hidden form with info for the MTurk's server
-            $('#main').html(Mustache.render(viewTemplate, {
-                thanksMessage: this.message,
-            }));
-        } else if (config_deploy.deployMethod === 'Prolific') {
-            var prolificURL = 'https://prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;
+        var retrieved_data2;
 
-            $('main').html(Mustache.render(viewTemplate, {
-                thanksMessage: this.message,
-                extraMessage: "Please press the button below<br />" + '<a href=' + prolificURL +  ' class="prolific-url">Finished!</a>'
-            }));
-        } else if (config_deploy.deployMethod === 'debug') {
-            $('main').html(Mustache.render(viewTemplate, {}));
-        } else {
-            console.log('no such config_deploy.deployMethod');
-        }
+        // check, if someone submited this exact coninuation in the meantime
+        // NOTE: you might want to do that in the very end (after all trials) again
+        $.ajax({
+                type: 'GET',
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
+                crossDomain: true,
+                success: function (responseData, textStatus, jqXHR) {
+                    retrieved_data2 = responseData;
+                    callback2("success");
+                },
+                statusCode: {
+                    404: function() {
+                        console.log("404 error occurred, possibly due to empty database.")
+                        callback("error");
+                    }
+                }
+              });
+        
+        function callback2(state) {
 
-        // maybe add check here
-        console.log("exp.trial_data");
-        console.log(exp.trial_data);
-        exp.submit();
+            // record second database load starting time
+            var endingTimeSubmit = Date.now(); 
+
+            viewTemplate = $('#thanks-view').html();
+
+            // what is seen on the screen depends on the used deploy method
+            //    normally, you do not need to modify this
+            if ((config_deploy.is_MTurk) || (config_deploy.deployMethod === 'directLink')) {
+                // updates the fields in the hidden form with info for the MTurk's server
+                $('#main').html(Mustache.render(viewTemplate, {
+                    thanksMessage: this.message,
+                }));
+            } else if (config_deploy.deployMethod === 'Prolific') {
+                var prolificURL = 'https://prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;
+
+                $('main').html(Mustache.render(viewTemplate, {
+                    thanksMessage: this.message,
+                    extraMessage: "Please press the button below<br />" + '<a href=' + prolificURL +  ' class="prolific-url">Finished!</a>'
+                }));
+            } else if (config_deploy.deployMethod === 'debug') {
+                $('main').html(Mustache.render(viewTemplate, {}));
+            } else {
+                console.log('no such config_deploy.deployMethod');
+            }
+
+            // if the database is still empty (or can't be called for other reasons), just set loading time to NA and submit
+            if (state == "error") {
+                exp.global_data.LoadT_submit = "NA";
+
+            } else {
+                exp.global_data.LoadT_submit = endingTimeSubmit-startingTimeSubmit;
+
+                // for every trial in the database, check whether this is the same chain continuation that you want to submit
+                // if so, declare this one as a deadend
+                for (var participant=0; participant<retrieved_data2.length; participant++){
+                    for (var trial=0; trial<retrieved_data2[participant].length; trial++){
+
+                        var current_trial = retrieved_data2[participant][trial];
+
+                        // first trial
+                        if ((exp.trial_data[0]["chain"] == current_trial["chain"]) & (exp.trial_data[0]["generation"] == current_trial["generation"])) {
+                            exp.trial_data[0]["deadend"] = true;
+                        }
+                        // second trial
+                        if ((exp.trial_data[1]["chain"] == current_trial["chain"]) & (exp.trial_data[1]["generation"] == current_trial["generation"])) {
+                            exp.trial_data[1]["deadend"] = true;
+                        }
+                        // third trial
+                        if ((exp.trial_data[2]["chain"] == current_trial["chain"]) & (exp.trial_data[2]["generation"] == current_trial["generation"])) {
+                            exp.trial_data[2]["deadend"] = true;
+                        }
+                    }
+                }
+
+            };
+
+            console.log("exp.trial_data");
+            console.log(exp.trial_data);
+
+            exp.submit();
+
+        };
+
 
     },
     trials: 1

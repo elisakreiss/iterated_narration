@@ -68,14 +68,14 @@ var main = {
         var startingTimeMain = Date.now();
 
         // max generations per chains (generation_max becomes deadend)
-        var generation_max = 3;
+        var generation_max = 7;
 
         // data from database
 		var retrieved_data;
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/7",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -93,9 +93,6 @@ var main = {
 
             // record first database load ending time
             var endingTimeMain = Date.now();
-
-            console.log("retrieved_data");
-            console.log(retrieved_data);
 			
             // 
             // HELPER FUNCTIONS
@@ -159,6 +156,12 @@ var main = {
 
             // if database was accessible (i.e., non-empty)
             if (state == 'success') {
+
+                console.log("retrieved_data");
+                console.log(retrieved_data);
+
+                loadT_main = endingTimeMain-startingTimeMain;
+
                 // database is structured in one array for each participant that yields one object for each trial
                 // go through all trials
                 for (var participant=0; participant<retrieved_data.length; participant++){
@@ -217,8 +220,6 @@ var main = {
                         var current_chainend = shuffled[chain_end];
                         // each chain_end is acceptable that is not a deadend
                         if (current_chainend["deadend"]==false) {
-                            console.log("chain_end");
-                            console.log(chain_end);
                             found_chainend = true;
 
                             story_text = current_chainend["reproduction"];
@@ -239,9 +240,11 @@ var main = {
                 }
             // else (if ajax GET call throws 404 error, because, e.g., the database doesn't exist yet, create new chain)
             } else {
+                console.log("start initial chain");
                 story_text = exp.trial_info.main_trials[CT].text;
                 chain = make_chainid();
                 generation = 1;
+                loadT_main = "NA";
             }
 
 
@@ -280,6 +283,11 @@ var main = {
                 $('#next').html('Sending...');
                 $('#next').prop('disabled', true);
 
+                deadend = false;
+                if (generation >= generation_max) {
+                    deadend = true;
+                }
+
                 // 
                 trial_data = {
                     trial_type: "reproductionDemo",
@@ -287,10 +295,10 @@ var main = {
                     story_title: story_kind,
                     story_text: story_text,
                     reproduction: $('#reproduction').val(),
-                    deadend: false,
+                    deadend: deadend,
                     chain: chain,
                     generation: generation,
-                    LoadT_main: endingTimeMain-startingTimeMain
+                    LoadT_main: loadT_main
                 };
                 exp.trial_data.push(trial_data);
                 exp.findNextView();
@@ -348,7 +356,7 @@ var thanks = {
         // NOTE: you might want to do that in the very end (after all trials) again
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/4",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/7",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;
@@ -357,7 +365,7 @@ var thanks = {
                 statusCode: {
                     404: function() {
                         console.log("404 error occurred, possibly due to empty database.")
-                        callback("error");
+                        callback2("error");
                     }
                 }
               });

@@ -15,7 +15,7 @@ var intro = {
             button: this.buttonText
         }));
 
-        $('#next').focus();
+        // $('#next').focus();
 
         // moves to the next view
         $('#next').on('click', function(e) {
@@ -43,7 +43,7 @@ var instructions = {
             button: this.buttonText
         }));
 
-        $('#next').focus();
+        // $('#next').focus();
 
         // moves to the next view
         $('#next').on('click', function(e) {
@@ -268,7 +268,7 @@ var main = {
                 button2:           "Done!"
             }));
 
-            $('#start_repro').focus();
+            // $('#start_repro').focus();
 
             // update the progress bar based on how many trials there are in this round
             var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
@@ -283,7 +283,7 @@ var main = {
                 hide("start_repro");
                 show("reproduction");
                 show("next");
-                $('#next').focus(); // you want to comment this out before deploying this experiment
+                // $('#next').focus(); // you want to comment this out before deploying this experiment
             }); 
 
 			// event listener for buttons; when an input is selected, the response

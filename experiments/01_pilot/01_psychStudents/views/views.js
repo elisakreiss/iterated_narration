@@ -168,6 +168,16 @@ var main = {
                     for (var trial=0; trial<retrieved_data[participant].length; trial++){
 
                         var current_trial = retrieved_data[participant][trial];
+
+
+                        //
+                        // set all stories to deadend, that are shorter than 7 words
+                        if (current_trial["reproduction"].length <= 7) {
+                            current_trial["deadend"] = true;
+                        }
+                        //
+
+
                         // if it is a trial with the wanted story
                         if (current_trial["story_title"] == story_kind) {
 

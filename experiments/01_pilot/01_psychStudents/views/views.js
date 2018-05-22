@@ -172,7 +172,7 @@ var main = {
 
                         //
                         // set all stories to deadend, that are shorter than 7 words
-                        if (current_trial["reproduction"].length <= 7) {
+                        if (current_trial["reproduction"].length <= 40) {
                             current_trial["deadend"] = true;
                         }
                         //

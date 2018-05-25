@@ -25,9 +25,9 @@ d %>% group_by(story_title, chain_number) %>% summarize(max_generation = max(gen
   geom_bar(stat = 'identity') +
   facet_grid(~ story_title, scales = 'free')
 
-# look at the later generations ones
+# look at the relevant bits of the data in order
 dd = d %>% select(story_title, chain_number, generation, reproduction) %>% 
   arrange(story_title, chain_number, generation)
 
-write.csv(dd, 'late_generations.csv')
+write.csv(dd, 'data_selection_ordered.csv')
 

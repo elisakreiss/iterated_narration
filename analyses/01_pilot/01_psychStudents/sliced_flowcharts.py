@@ -42,10 +42,6 @@ def new_graph(story):
 	chains = []
 	for chain in range(0,len(data_dict["chain"])):
 		if data_dict["story_title"][chain] == story:
-			# # maybe leave this out
-			# if data_dict["generation"][chain] == 1:
-			# 	f.node('original',label=data_dict["story_text"][chain])
-			# #
 			if data_dict["chain"][chain] not in chains:
 				chains.append(data_dict["chain"][chain])
 

@@ -20,6 +20,7 @@
 - prototypical specifications (becoming more specific by filling in prototypical attributes)
 - omit reasons (maybe also motives)
 - singularization
+- exchange cities: Chicago -> Kentucky; London -> New York
 
 #### To think about
 
@@ -44,7 +45,7 @@
 	- Kenntuky -> Kentucky
 - more specific with integration of world knowledge
 	- she tried to get on a flight to Kenntuky, but failed -> but missed the flight
-	- "was not allowed to enter" was never mentioned in original
+	- **"was not allowed to enter" was never mentioned in original**
 	- "Chicago (USA)"
 - confuse events that often happen together / are highly associated
 	- **"controlling other passenger's boarding passes" -> "checking the luggage of other passengers"**

@@ -20,8 +20,6 @@
 *subject_information.csv
 *system.csv
 *trials.csv
-*mturk.csv
-*mturk/
 *node_modules*
 *dump.rdb
 *.gv

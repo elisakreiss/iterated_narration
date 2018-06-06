@@ -60,7 +60,7 @@ var instructions = {
 
 var main = {
 	
-	trials : 3,
+	trials : 2,
 	
     render : function(CT) {
 
@@ -75,7 +75,7 @@ var main = {
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/7",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/9",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -364,7 +364,7 @@ var thanks = {
         // NOTE: you might want to do that in the very end (after all trials) again
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/7",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/9",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

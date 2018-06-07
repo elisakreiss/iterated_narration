@@ -3,7 +3,7 @@ var config_deploy = {
     // obligatory fields
 	
     // needed to recover data from server app
-   "author": "EK",
+   "author": "ЕК",
     // needed to recover data from server app
    "experiment_id": "IteratedNarration_MTurkPilot01", 
    "description": "IteratedNarration_MTurkPilot01",
@@ -13,7 +13,7 @@ var config_deploy = {
     // 'MTurkSandbox', 'Prolific', 'directLink'
     // "deployMethod" : "directLink", 
     // "deployMethod" : "debug", 
-    "deployMethod" : "MTurk", 
+    "deployMethod" : "MTurkSandbox", 
     
     // optional fields
     

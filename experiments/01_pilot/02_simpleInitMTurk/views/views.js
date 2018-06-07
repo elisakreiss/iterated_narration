@@ -427,10 +427,10 @@ var thanks = {
                         if ((exp.trial_data[1]["chain"] == current_trial["chain"]) & (exp.trial_data[1]["generation"] == current_trial["generation"])) {
                             exp.trial_data[1]["deadend"] = true;
                         }
-                        // third trial
+                        /* // third trial
                         if ((exp.trial_data[2]["chain"] == current_trial["chain"]) & (exp.trial_data[2]["generation"] == current_trial["generation"])) {
                             exp.trial_data[2]["deadend"] = true;
-                        }
+                        }*/
                     }
                 }
 

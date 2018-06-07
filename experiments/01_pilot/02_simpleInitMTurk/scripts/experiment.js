@@ -19,6 +19,3 @@ exp.customize = function() {
     this.trial_info.main_trials = _.shuffle(main_trials)
 	
 };
-
-
-

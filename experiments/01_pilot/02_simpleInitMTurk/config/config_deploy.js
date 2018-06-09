@@ -13,7 +13,7 @@ var config_deploy = {
     // 'MTurkSandbox', 'Prolific', 'directLink'
     // "deployMethod" : "directLink", 
     // "deployMethod" : "debug", 
-    "deployMethod" : "MTurkSandbox", 
+    "deployMethod" : "MTurk", 
     
     // optional fields
     

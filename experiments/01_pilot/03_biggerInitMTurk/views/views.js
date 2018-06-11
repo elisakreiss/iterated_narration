@@ -2,7 +2,7 @@ var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will read three stories and are asked to reproduce them as accurately as you can.",
+    "text": "Thank you for participating in our study. In this study, you will read two stories and are asked to reproduce them as accurately as you can.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
@@ -31,7 +31,7 @@ var instructions = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
-    "text": "In each of the three trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original. <p><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
+    "text": "In each of the two trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original. <p><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
     // instuction's slide proceeding button text
     "buttonText": "Let's go!",
     render: function() {

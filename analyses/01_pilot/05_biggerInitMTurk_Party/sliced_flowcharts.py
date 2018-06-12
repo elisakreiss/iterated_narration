@@ -1,8 +1,7 @@
 from graphviz import Digraph
 import pandas as pd
 
-# csv_path = "/Users/elisakreiss/Documents/business/projects/iterated_narration/study/data/01_pilot/01_psychStudents/flowchart_data.csv"
-csv_path = "./../../../data/01_pilot/03_biggerInitMTurk/flowchart_data.csv"
+csv_path = "./../../../data/01_pilot/05_biggerInitMTurk_Party/flowchart_data.csv"
 
 def create_graph(data_dict,story,slice_nr,chains):
 	f = Digraph('repro_chain', filename='flowcharts/repro_chain_'+story+str(slice_nr)+'.gv')

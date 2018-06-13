@@ -20,8 +20,7 @@ Additionally, we will collect a number of __objective variables__ for each story
 - Choice of lexical material (emotional content, strength (touching vs groping).
 - …
 
-
-## To do (roughly in order)
+## General to do (roughly in order)
 
 - Construct seeds
 - Write cover stories
@@ -33,6 +32,10 @@ Additionally, we will collect a number of __objective variables__ for each story
 - Pilot other seeds with small 
 - Submit preregistration report
 - Run full exp.
+
+## Thoughts
+
+- change party cover story to "telling your best friend while having dinner" to avoid crazy, exotic and completely untruthful stories
 
 ## At some point
 

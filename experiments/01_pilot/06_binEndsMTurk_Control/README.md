@@ -1,7 +1,7 @@
 ## Experiment Pilot 06\_binEndsMTurk\_Control
 
 ### Question
-Do we find a different use in hedges when we reassure vs. dispirit the readers belief that the suspect is in fact responsible?
+Do we find a different use in hedges when we reassure vs. dispirit the reader's belief that the suspect is in fact responsible?
 (Maybe also have third seed without final sentence to compare which version this basic one is closer to?)
 
 ### Expectations

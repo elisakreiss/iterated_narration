@@ -5,15 +5,15 @@ var config_deploy = {
     // needed to recover data from server app
    "author": "ЕК",
     // needed to recover data from server app
-   "experiment_id": "IteratedNarration_Pilot03", 
-   "description": "IteratedNarration_Pilot03",
+   "experiment_id": "IteratedNarration_Pilot06", 
+   "description": "IteratedNarration_Pilot06",
 
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
     // "deployMethod" : "directLink", 
-    // "deployMethod" : "debug", 
-    "deployMethod" : "MTurk", 
+    "deployMethod" : "debug", 
+    // "deployMethod" : "MTurk", 
     
     // optional fields
     

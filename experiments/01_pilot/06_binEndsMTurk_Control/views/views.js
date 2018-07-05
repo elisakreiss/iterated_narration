@@ -75,7 +75,7 @@ var main = {
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/13",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/16",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -147,6 +147,8 @@ var main = {
             // 
             // Decide on stimulus to show; define chain and generation
             // 
+            console.log("main_trials");
+            console.log(exp.trial_info.main_trials);
             var story_kind = exp.trial_info.main_trials[CT].title;
             // to save available chain_ends from database
             var chain_ends = [];
@@ -364,7 +366,7 @@ var thanks = {
         // NOTE: you might want to do that in the very end (after all trials) again
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/13",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/16",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

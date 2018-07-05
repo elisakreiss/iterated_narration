@@ -16,6 +16,8 @@ exp.customize = function() {
 	
     // prepare information about trials (procedure)
 	// randomize main trial order, but keep practice trial order fixed
-    this.trial_info.main_trials = _.shuffle(main_trials)
-	
+    chosen_stories = _.shuffle(main_trials).slice(0,2);
+    first_seed = _.shuffle(chosen_stories[0])[0];
+    second_seed = _.shuffle(chosen_stories[1])[0];
+    this.trial_info.main_trials = [first_seed,second_seed];
 };

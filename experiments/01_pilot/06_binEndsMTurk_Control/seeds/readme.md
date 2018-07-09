@@ -33,7 +33,7 @@ Overview on the number of expressions per seed (and the level of how crucial the
 	- up to 10 years / up to $10,000 (4)
 - Discreteness
 	- 50 beehives (3)
-	- 12 and 13 years old (4) *(important because of juvenile court)*
+	- 2 boys (4) / 12 and 13 years old (4) *(important because of juvenile court)*
 
 ### Smuggler
 - Likelihood

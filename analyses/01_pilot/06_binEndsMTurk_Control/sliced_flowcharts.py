@@ -5,35 +5,43 @@ import pandas as pd
 csv_path = "./../../../data/01_pilot/06_binEndsMTurk_Control/flowchart_data.csv"
 
 def create_graph(data_dict,story,slice_nr,chains):
+
 	f = Digraph('repro_chain', filename='flowcharts/'+story+str(slice_nr)+'_repro_chain.gv')
 	f.attr(rankdir='TB', size='30')
 	f.attr('node', shape='rectangle')
 
-	print("chains")
-	print(chains)
-
 	for chain in chains:
+		# arr collects all reproductions from one chain
 		arr = []
 		print("***")
 		print(chain)
+		
 		for row in range(0,len(data_dict["story_title"])):
+			# go through all data of the currently looked at story (e.g., bees)
 			if (data_dict["story_title"][row] == story):
-				# maybe leave this out
+				# create a node with the original seed (taken from first reproduction) and call it "original" (not chain specific)
 				if (data_dict["generation"][row] == 1):
 					f.node('original',label=data_dict["story_text"][row])
-				#
-			# print(row)
+
+			# select data of current chain and put it in arr
 			if chain == data_dict["chain"][row]:
-				arr.append({'chain': chain, 'reproduction': data_dict["reproduction"][row], 'generation': data_dict["generation"][row], 'deadend': data_dict["deadend"][row]})
-			# after all rows of one chain have been saved in arr, create graph
-			if row == (len(data_dict["story_title"])-1):
-				print(arr)
-				for repro in range(0,len(arr)):
-					f.node(arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']),label=str(arr[repro]['reproduction']))
-					if arr[repro]['generation'] > 1:
-						f.edge((arr[repro]['chain']+str(arr[repro]['generation']-1)+'False'),arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']))
-					else:
-						f.edge('original',arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']))
+				arr.append({'chain': chain, 'reproduction': data_dict["reproduction"][row], 'generation': data_dict["generation"][row], 'deadend': data_dict["deadend"][row], 'row': row})
+		
+		# after all rows of one chain have been saved in arr, create graph
+		for repro in range(0,len(arr)):
+			# create new node for current reproduction
+			if arr[repro]['deadend'] == True:
+				f.node(arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend'])+str(arr[repro]['row']),label=str(arr[repro]['reproduction']))
+				f.edge((arr[repro]['chain']+str(arr[repro]['generation']-1)+'False'),arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend'])+str(arr[repro]['row']))
+			else:
+				f.node(arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']),label=str(arr[repro]['reproduction']))
+
+				if arr[repro]['generation'] > 1:
+					# print('arr[repro]')
+					# print(arr[repro])
+					f.edge((arr[repro]['chain']+str(arr[repro]['generation']-1)+'False'),arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']))
+				else:
+					f.edge('original',arr[repro]['chain']+str(arr[repro]['generation'])+str(arr[repro]['deadend']))
 	f.view()
 
 
@@ -48,23 +56,15 @@ def new_graph(story):
 			if data_dict["chain"][chain] not in chains:
 				chains.append(data_dict["chain"][chain])
 
-	print("chains")
-	print(chains)
 	i = 0
 	slice_nr = 1
 	sliced_chain = []
 	for chain in chains:
-		print("chain")
-		print(chain)
 		if ((i == 0) | (i == 1)):
 			sliced_chain.append(chain)
-			print("sliced_chain if")
-			print(sliced_chain)
 			i += 1
 		else:
 			sliced_chain.append(chain)
-			print("sliced_chain else")
-			print(sliced_chain)
 			create_graph(data_dict,story,slice_nr,sliced_chain)
 			sliced_chain = []
 			slice_nr += 1

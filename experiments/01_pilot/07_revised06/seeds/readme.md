@@ -6,7 +6,7 @@ Overview on the number of expressions per seed (and the level of how crucial the
 |---------------|-----------|-------------|---------------|
 | Likelihood    | 2 (5,4)   | 2 (5,4)     | 3 (5,4,4)     |
 | Impreciseness | 3 (4,4,2) | 4 (4,4,4,2) | 4 (4,4,4,2)   |
-| Discreteness  | 3 (3,2,1) | 2 (4,3)     | 1 (4)         |
+| Discreteness  | 3 (4,3,1) | 2 (4,3)     | 1 (4)         |
 
 
 ### Arson
@@ -19,8 +19,8 @@ Overview on the number of expressions per seed (and the level of how crucial the
 	- up to 10 years (4)
 - Discreteness
 	- eight different fires (1)
-	- reward of $6000 (3, maybe 2?)
-	- a 37 year old (3)
+	- reward of $6000 (3)
+	- a 37 year old (4) *(important because it's the only identifier for the suspect except for "man")*
 
 ### Bees
 - Likelihood

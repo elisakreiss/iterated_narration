@@ -2,7 +2,7 @@ var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will read two stories and are asked to reproduce them as accurately as you can.",
+    "text": "Thank you for participating in our study. In this study, you will read two stories and are asked to reproduce them as accurately as you can. Afterwards you are asked a few questions about these stories.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
@@ -31,7 +31,7 @@ var instructions = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
-    "text": "In each of the two trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes and do not copy-paste.</strong> Make sure to retell the story immediately after reading the original. Afterwards, you are asked a few questions to control that you read the stories properly.<p><br><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
+    "text": "In each of the two trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes and do not copy-paste your answer.</strong> Make sure to retell the story immediately after reading the original. Afterwards, you are asked a few questions to control that you read the stories properly.<p><br><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
     // instuction's slide proceeding button text
     "buttonText": "Let's go!",
     render: function() {
@@ -68,14 +68,14 @@ var main = {
         var startingTimeMain = Date.now();
 
         // max generations per chains (generation_max becomes deadend)
-        var generation_max = 4;
+        var generation_max = 3;
 
         // data from database
 		var retrieved_data;
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/16",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/17",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -287,7 +287,7 @@ var main = {
 
                     // 
                     trial_data = {
-                        trial_type: "reproductionDemo",
+                        trial_type: "reproduction",
                         trial_number: CT + 1,
                         story_title: story_kind,
                         story_text: story_text,
@@ -306,47 +306,16 @@ var main = {
     }
 };
 
-// var guiltQuestions = {
-//     "title": "How well did you read the stories?",
-//     // "text": "Answering the following questions is optional, but will help us understand your answers.",
-//     "buttonText": "Continue",
-//     render : function() {
-
-//         viewTemplate = $('#trial-view-slider-response').html();
-//         $('#main').html(Mustache.render(viewTemplate, {
-//             title: this.title,
-//             // text: this.text,
-//             buttonText: this.buttonText
-//         }));
-
-//         $('#next').on('click', function(e) {
-//             // due to loading times, disable button so experiment can't be advanced until last slide just here
-//             $('#next').html('Sending...');
-//             $('#next').prop('disabled', true);
-//             // prevents the form from submitting
-//             e.preventDefault();
-
-//             // records the post test info
-//             exp.global_data.familiar = $('#familiar').val();
-
-//             // moves to the next view
-//             exp.findNextView();
-//         })
-
-//     },
-//     trials: 1
-// };
-
 var mainSliderRating = {
     "title": "Questions",
     "text": "According to what you have read...",
     // "buttonText": "Let's go!",
     render : function(CT) {
 
-        function hide(obj) {
-            $("#"+obj).css({"visibility": "hidden"});
-            $("#"+obj).css({"display": "none"});
-        };
+        // function hide(obj) {
+        //     $("#"+obj).css({"visibility": "hidden"});
+        //     $("#"+obj).css({"display": "none"});
+        // };
 
         // what part of the progress bar is filled
         // var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
@@ -450,11 +419,10 @@ var thanks = {
 
         var retrieved_data2;
 
-        // check, if someone submited this exact coninuation in the meantime
-        // NOTE: you might want to do that in the very end (after all trials) again
+        // check, if someone submitted this exact coninuation in the meantime
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/16",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/17",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

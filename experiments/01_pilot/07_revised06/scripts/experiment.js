@@ -9,8 +9,8 @@ exp.customize = function() {
 	
     // specify view order
     this.views_seq = [
-                     // intro, 
-					 // instructions,
+                     intro, 
+					 instructions,
 					 main,
                      mainSliderRating,
                      postTest,

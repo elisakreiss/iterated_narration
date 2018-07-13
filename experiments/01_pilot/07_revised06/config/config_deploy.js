@@ -12,8 +12,8 @@ var config_deploy = {
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
     // "deployMethod" : "directLink", 
-    // "deployMethod" : "debug", 
-    "deployMethod" : "MTurk", 
+    "deployMethod" : "debug", 
+    // "deployMethod" : "MTurk", 
     
     // optional fields
     

@@ -75,7 +75,7 @@ var main = {
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/17",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/18",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -422,7 +422,7 @@ var thanks = {
         // check, if someone submitted this exact coninuation in the meantime
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/17",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/18",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

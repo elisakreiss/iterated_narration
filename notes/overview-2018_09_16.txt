@@ -1,0 +1,20 @@
+Iterated narration
+
+- Procedure:
+	- iterated narration study (participants read a story and reproduce them in several generations; how does the story develop?)
+	- in a seperate study, participants rate (maybe only in first and final story in chain) how likely it is in their opinion that the suspect from the story is in fact guilty
+
+- Stimuli:
+	- 3 stories, each occurring in 2 conditions
+	- stories: Arson, Bees, Smuggler
+	- conditions: free, jail
+	- style of the stories: short paragraphs written in a sober, news-article style
+	- content of the stories: report about a crime and the arrest of a suspect/several suspects; each story contains a very similar amount of numbers, hedges and vague/imprecise terms (ELABORATE!)
+	- a story in a "free" condition differs from a story in the "jail" condition in its last sentence; it either enforces or dispirits the reader's belief that the suspect is in fact guilty
+
+- Main question:
+	- Do we find a different use in hedges when we reassure vs. dispirit the reader's belief that the suspect is in fact responsible?
+
+- Other thoughts:
+	- Do we influence "being plead guilty" and "being guilty" (it often seems to be the case, that people assume the suspect is guilty and as soon as vagueness comes into play, they just start question whether they will receive their "deserved" punishment)?
+	- Why do hedges and approximators sometimes appear/change for something more meaningful (e.g., include "nearly")? Emotions?

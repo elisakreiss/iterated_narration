@@ -18,4 +18,4 @@ In the dispirited case, information about punishment should be left out more oft
 - bees_free
 - bees_jail
 - smuggler_free
-- smuggler_jail
+- smuggler_jailx

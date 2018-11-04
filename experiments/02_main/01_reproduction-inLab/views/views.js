@@ -63,10 +63,12 @@ var main = {
         // record first database load starting time
         var startingTimeMain = Date.now();
 
+        var current_seed_shuffled = _.shuffle(exp.trial_info.main_trials[CT]);
+
         // number of chains per seed
-        var chain_max = 5;
+        var chain_max = 2;
         // max generations per chains (generation_max becomes deadend)
-        var generation_max = 5;
+        var generation_max = 2;
         // minimum amount of characters that a reproduction should have; 
         // otherwise shows text prompting participant to make a more explicit answer
         var min_repro_length = 3;
@@ -80,7 +82,7 @@ var main = {
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/21",
+				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/54",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -98,6 +100,8 @@ var main = {
 
             // record first database load ending time
             var endingTimeMain = Date.now();
+
+            var current_condition = current_seed_shuffled[0];
 			
             // 
             // HELPER FUNCTIONS
@@ -130,7 +134,7 @@ var main = {
                     chain: make_chainid(),
                     generation: 0,
                     deadend: false,
-                    reproduction: exp.trial_info.main_trials[CT].text
+                    reproduction: current_condition.text
                 };
                 return new_chain;
             };
@@ -139,7 +143,8 @@ var main = {
             // 
             // Decide on stimulus to show; define chain and generation
             // 
-            var story_kind = exp.trial_info.main_trials[CT].title;
+            // var story_kind = exp.trial_info.main_trials[CT].title;
+            var story_kind = current_condition.title;
             // to save available chain_ends from database
             var chain_ends = [];
             var chain;
@@ -151,13 +156,35 @@ var main = {
 
                 loadT_main = endingTimeMain-startingTimeMain;
 
+                // if number of chains for story_title > chain_max, choose the other condition
+                function get_number_of_unique_chains(retrieved_data,story_kind) {
+                    console.log("story_kind");
+                    console.log(story_kind);
+                    chains = [];
+                    for (var participant=0; participant<retrieved_data.length; participant++){
+                        for (var trial=0; trial<retrieved_data[participant].length; trial++){
+                            var current_trial = retrieved_data[participant][trial];
+                            if (current_trial["story_title"] == story_kind){
+                                chains.push(current_trial["chain"]);
+                            }
+                        }
+                    }
+                    console.log("(_.uniq(chains)).length");
+                    console.log((_.uniq(chains)).length);
+                    return (_.uniq(chains)).length;
+                };
+
+                if (get_number_of_unique_chains(retrieved_data,story_kind) > chain_max){
+                    current_condition = current_seed_shuffled[1];
+                    story_kind = current_condition.title;
+                }
+
                 // database is structured in one array for each participant that yields one object for each trial
                 // go through all trials
                 for (var participant=0; participant<retrieved_data.length; participant++){
                     for (var trial=0; trial<retrieved_data[participant].length; trial++){
 
                         var current_trial = retrieved_data[participant][trial];
-
 
                         //
                         // set all stories to deadend, that are shorter than final_repro_length
@@ -201,9 +228,11 @@ var main = {
                 // chain_ends.push(initiate_chain());
 
                 // fill up until desired number of chains (chain_max) is reached
-                while (chain_ends.length() < chain_max){
+                while (chain_ends.length < chain_max){
                     chain_ends.push(initiate_chain());
                 }
+                console.log("chain_ends");
+                console.log(chain_ends);
                 
                 // choose chain_end that will be continued with this participant
                 var shuffled = _.shuffle(chain_ends);
@@ -220,13 +249,13 @@ var main = {
                             story_text = current_chainend["reproduction"];
                             chain = current_chainend["chain"];
                             generation = current_chainend["generation"]+1;
-                            break; // but this doesn't make me exit for loop, right? 
+                            break;
                         }
                     }
                     // if there is no story in our data base that fits and is not a deadend, start with new seed
                     if (found_chainend == false) {
                         found_chainend = true;
-                        story_text = exp.trial_info.main_trials[CT].text;
+                        story_text = current_condition.text;
                         // if two people start at the same time, both can still be used, but system would fail if they get the same number
                         chain = make_chainid();
                         generation = 1;
@@ -235,7 +264,7 @@ var main = {
             // else (if ajax GET call throws 404 error, because, e.g., the database doesn't exist yet, create new chain)
             } else {
                 console.log("start initial chain");
-                story_text = exp.trial_info.main_trials[CT].text;
+                story_text = current_condition.text;
                 chain = make_chainid();
                 generation = 1;
                 loadT_main = "NA";
@@ -357,7 +386,7 @@ var thanks = {
         // check, if someone submitted this exact coninuation in the meantime
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/21",
+                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/54",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

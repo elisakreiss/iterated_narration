@@ -16,12 +16,14 @@ exp.customize = function() {
 	
     // prepare information about trials (procedure)
 	// randomize main trial order, but keep practice trial order fixed
-    chosen_stories = _.shuffle(main_trials).slice(0,5);
-    first_seed = _.shuffle(chosen_stories[0])[0];
-    second_seed = _.shuffle(chosen_stories[1])[0];
-    third_seed = _.shuffle(chosen_stories[2])[0];
-    fourth_seed = _.shuffle(chosen_stories[3])[0];
-    fifth_seed = _.shuffle(chosen_stories[4])[0];
-    this.trial_info.main_trials = [first_seed,second_seed,third_seed,fourth_seed,fifth_seed];
+    // chosen_stories = _.shuffle(main_trials).slice(0,5);
+    // first_seed = _.shuffle(chosen_stories[0])[0];
+    // second_seed = _.shuffle(chosen_stories[1])[0];
+    // third_seed = _.shuffle(chosen_stories[2])[0];
+    // fourth_seed = _.shuffle(chosen_stories[3])[0];
+    // fifth_seed = _.shuffle(chosen_stories[4])[0];
+    // this.trial_info.main_trials = [first_seed,second_seed,third_seed,fourth_seed,fifth_seed];
+
+    this.trial_info.main_trials = _.shuffle(main_trials);
 	
 };

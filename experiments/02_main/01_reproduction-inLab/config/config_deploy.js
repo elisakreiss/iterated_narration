@@ -5,8 +5,8 @@ var config_deploy = {
     // needed to recover data from server app
    "author": "ЕК",
     // needed to recover data from server app
-   "experiment_id": "IteratedNarration_Main-inLab", 
-   "description": "IteratedNarration_Main-inLab",
+   "experiment_id": "IteratedNarration_Main-inLab_debug2", 
+   "description": "IteratedNarration_Main-inLab_debug2",
 
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 

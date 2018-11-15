@@ -244,6 +244,14 @@ input[type="range"]:focus::-moz-range-thumb {
     color: #555;
 }
 
+.legal-text {
+    font-style: italic;
+    text-align: left;
+    color: #555;
+    font-size: 11px;
+    line-height: 15px;
+}
+
 /* does not display the element */
 .nodisplay {
     display: none;

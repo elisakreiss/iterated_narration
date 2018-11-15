@@ -60,12 +60,20 @@
 				<p class="text">{{ text }}</p>
 			</section>
 			{{/ text }}
+			<br>
+			<br>
+			{{# legal_info }}
+			<section class="text-container">
+				<p class="legal-text">{{{ legal_info }}}</p>
+			</section>
+			{{/ legal_info }}
 			{{# button }}
 			<button id="next">{{ button }}</button>
 			{{/ button }}
-			{{^ button }}
+
+			<!-- {{^ button }}
 			<button id="next">Begin Experiment</button>
-			{{/ button }}
+			{{/ button }} -->
 		</div>
 		</script>
 
@@ -90,12 +98,6 @@
 		<!-- <script id="main-view" type="x-tmpl-mustache"> -->
 		<script id="main-view" type="text/html">
 			<div class="view">
-
-			<!-- <div class="progress-bar-container">
-				<p>progress</p>
-				<div class="progress-bar"><span id='filled'></span></div>
-			</div> -->
-			<!-- <div class="clearfix"></div> -->
 			
 			<section class="text-container">
 				<p class="help-text">{{ recap_instruction }}</p>

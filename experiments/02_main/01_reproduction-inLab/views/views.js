@@ -3,6 +3,7 @@ var intro = {
     "title": "Welcome!",
     // introduction text
     "text": "Thank you for participating in our study. In this study, you will read five stories and are asked to reproduce them as accurately as you can.",
+    "legal_info": "<strong>LEGAL INFORMATION</strong>:<br><br>We invite you to participate in a research study on language production and comprehension.<br>Your experimenter will ask you to do a linguistic task such as reading sentences or words, naming pictures or describing scenes, making up sentences of your own, or participating in a simple language game.<br><br>There are no risks or benefits of any kind involved in this study.<br><br>If you have read this form and have decided to participate in this experiment, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to do particular tasks. Your individual privacy will be maintained in all published and written data resulting from the study.<br>You may print this form for your records.<br><br>CONTACT INFORMATION:<br>If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should contact the Protocol Director Meghan Sumner at <br>(650)-725-9336<br><br>If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br><br>If you agree to participate, please proceed to the study tasks.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
@@ -12,6 +13,7 @@ var intro = {
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
             text: this.text,
+            legal_info: this.legal_info,
             button: this.buttonText
         }));
 
@@ -29,7 +31,7 @@ var instructions = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
-    "text": "In each of the five trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original. <p><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
+    "text": "In each of the five trials of this experiment, you will read a short story. You are then asked to retell this story. <strong>Please do not take notes.</strong> Make sure to retell the story immediately after reading the original. <br><br><p><strong>Notice:</strong> You may experience lags during the experiment, because the experiment communicates with a data base. Please just be patient, as the experiment should resume soon enough.",
     // instuction's slide proceeding button text
     "buttonText": "Let's go!",
     render: function() {
@@ -75,14 +77,15 @@ var main = {
         // reproductions with a total number of characters smaller than the final_repro_length
         // will automatically terminate the chain, since they are so short that they can be
         // recalled almost word-by-word
-        var final_repro_length = 140;
+        var final_repro_length = 3;
+        // var final_repro_length = 140;
 
         // data from database
 		var retrieved_data;
 		
 		$.ajax({
 				type: 'GET',
-				url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/54",
+				url: "https://mcmpact.ikw.uni-osnabrueck.de/babe/api/retrieve_experiment/15",
 				crossDomain: true,
 				success: function (responseData, textStatus, jqXHR) {
                     retrieved_data = responseData;
@@ -157,26 +160,36 @@ var main = {
                 loadT_main = endingTimeMain-startingTimeMain;
 
                 // if number of chains for story_title > chain_max, choose the other condition
-                function get_number_of_unique_chains(retrieved_data,story_kind) {
+                function get_number_of_filled_chains(retrieved_data,story_kind) {
+                    console.log("get_number_of_unique_chains");
                     console.log("story_kind");
                     console.log(story_kind);
                     chains = [];
                     for (var participant=0; participant<retrieved_data.length; participant++){
                         for (var trial=0; trial<retrieved_data[participant].length; trial++){
                             var current_trial = retrieved_data[participant][trial];
-                            if (current_trial["story_title"] == story_kind){
+                            if ((current_trial["story_title"] == story_kind) & (current_trial["deadend"] == true)){
                                 chains.push(current_trial["chain"]);
                             }
                         }
                     }
-                    console.log("(_.uniq(chains)).length");
-                    console.log((_.uniq(chains)).length);
-                    return (_.uniq(chains)).length;
+                    // console.log("(_.uniq(chains)).length");
+                    // console.log((_.uniq(chains)).length);
+                    console.log("chains.length");
+                    console.log(chains.length);
+                    return chains.length;
                 };
 
-                if (get_number_of_unique_chains(retrieved_data,story_kind) > chain_max){
+                if (get_number_of_filled_chains(retrieved_data,story_kind) >= chain_max){
+                    console.log("get_number_of_unique_chains >= chain_max");
+                    console.log("so change current condition from");
+                    console.log(current_condition);
                     current_condition = current_seed_shuffled[1];
+                    console.log("to");
+                    console.log(current_condition);
                     story_kind = current_condition.title;
+                    console.log("and use now story_kind");
+                    console.log(story_kind);
                 }
 
                 // database is structured in one array for each participant that yields one object for each trial
@@ -270,7 +283,8 @@ var main = {
                 loadT_main = "NA";
             }
 
-
+            console.log("current story condition:");
+            console.log(story_kind);
 
             // fill variables in view-template
             var viewTemplate = $('#main-view').html();
@@ -386,7 +400,7 @@ var thanks = {
         // check, if someone submitted this exact coninuation in the meantime
         $.ajax({
                 type: 'GET',
-                url: "https://babe-backend.herokuapp.com/api/retrieve_experiment/54",
+                url: "https://mcmpact.ikw.uni-osnabrueck.de/babe/api/retrieve_experiment/15",
                 crossDomain: true,
                 success: function (responseData, textStatus, jqXHR) {
                     retrieved_data2 = responseData;

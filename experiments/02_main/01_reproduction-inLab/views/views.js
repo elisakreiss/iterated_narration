@@ -77,8 +77,7 @@ var main = {
         // reproductions with a total number of characters smaller than the final_repro_length
         // will automatically terminate the chain, since they are so short that they can be
         // recalled almost word-by-word
-        var final_repro_length = 140;
-        // var final_repro_length = 140;
+        var final_repro_length = 100;
 
         // data from database
 		var retrieved_data;

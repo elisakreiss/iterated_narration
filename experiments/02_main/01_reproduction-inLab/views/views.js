@@ -68,16 +68,16 @@ var main = {
         var current_seed_shuffled = _.shuffle(exp.trial_info.main_trials[CT]);
 
         // number of chains per seed
-        var chain_max = 2;
+        var chain_max = 5;
         // max generations per chains (generation_max becomes deadend)
-        var generation_max = 2;
+        var generation_max = 5;
         // minimum amount of characters that a reproduction should have; 
         // otherwise shows text prompting participant to make a more explicit answer
         var min_repro_length = 3;
         // reproductions with a total number of characters smaller than the final_repro_length
         // will automatically terminate the chain, since they are so short that they can be
         // recalled almost word-by-word
-        var final_repro_length = 3;
+        var final_repro_length = 140;
         // var final_repro_length = 140;
 
         // data from database

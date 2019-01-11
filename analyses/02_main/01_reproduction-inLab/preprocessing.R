@@ -13,9 +13,19 @@ library(here)
 
 df = read_csv(here("data","02_main","01_reproduction-inLab","raw.csv"))
 
-clean = df %>%
+d_flowchart = df %>%
         select(chain,deadend,generation,reproduction,story_text,story_title)
 
-clean$story_text = gsub("(.{201,}?)\\s", "\\1\n", clean$story_text)
-clean$reproduction = gsub("(.{61,}?)\\s", "\\1\n", clean$reproduction)
-write.csv(clean, file = here("data","02_main","01_reproduction-inLab","flowchart_data.csv"), row.names = FALSE)
+# there is only one deadend because of multiple entries
+d_flowchart[d_flowchart$deadend=="true" & !d_flowchart$generation==5,]
+
+d_flowchart$story_text = gsub("(.{201,}?)\\s", "\\1\n", d_flowchart$story_text)
+d_flowchart$reproduction = gsub("(.{61,}?)\\s", "\\1\n", d_flowchart$reproduction)
+write.csv(d_flowchart, file = here("data","02_main","01_reproduction-inLab","flowchart_data.csv"), row.names = FALSE)
+
+# currently we use all reproductions
+d_followup = df %>%
+  select(chain,generation,reproduction,story_title)
+
+write.table(d_followup, file = here("experiments","02_main","02_subjective-ratings","trial_info","reproduction-data.csv"), sep=";", row.names = FALSE, qmethod = "double")
+

@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>browser-based experiments</title>
+
+        <!-- fonts from Google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700|Playfair+Display:700" rel="stylesheet">
+
+        <!-- css -->
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+
+        <!-- js dependencies -->
+        <script src="libraries/mustache/mustache.min.js"></script>
+        <script src="libraries/jquery/dist/jquery.min.js"></script>
+        <!-- This doesn't seem to be there on cloudflare -->
+        <script src="libraries/csv-js/csv.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
+
+        <!-- config -->
+        <script src="config/config_deploy.js"></script>
+
+        <!-- local js files -->
+        <script src="scripts/main.js"></script>
+        <script src="scripts/experiment.js"></script>
+        <script src="scripts/helpers.js"></script>
+        <script src="scripts/utils.js"></script>
+        <script src="scripts/submit_to_server.js"></script>
+
+        <!-- local trial_info files -->
+        <script src="trial_info/main_trials.js"></script>
+
+        <!-- views -->
+        <script src="views/views.js"></script>
+    </head>
+
+    <body>
+        <noscript>This task requires JavaScript. Please enable JavaScript in your browser and reload the page. For more information on how to do that, please refer to
+            <a href='https://enable-javascript.com' target='_blank'>enable-javascript.com</a>
+        </noscript>
+
+        <!-- views are inserted in main -->
+        <main id='main'>
+            Loading...
+        </main>
+
+        <!-- Mustache templates below. Each template is a view with a separate HTML structure. -->
+        <!-- Introduction view -->
+        <script id="intro-view" type="text/html">
+            <div class='view'>
+                <div class="picture">
+                <img src={{ picture }} alt="a picture" height="180">
+                </div>
+                <!-- {{# title }}
+                <h1 class="title">{{ title }}</h1>
+                {{/ title }} -->
+                {{# text }}
+                <section class="text-container">
+                    <p class="text">{{{ text }}}</p>
+                </section>
+                {{/ text }}
+                <br>
+                <br>
+                {{# legal_info }}
+                <section class="text-container">
+                    <hr>
+                    <br>
+                    <p class="legal-text">{{{ legal_info }}}</p>
+                </section>
+                {{/ legal_info }}
+                <p id="prolific-id-form">
+                    <label for="prolific-id">Please, enter your Prolific ID</label>
+                    <input type="text" id="prolific-id" />
+                </p>
+                {{# button }}
+                <button id="next" class="nodisplay">{{ button }}</button>
+                {{/ button }}
+                {{^ button }}
+                <button id="next">Next</button>
+                {{/ button }}
+            </div>
+        </script>
+
+        <!-- Instructions view -->
+        <script id="instructions-view" type="text/html">
+        <div class="view">
+            {{# title }}
+            <h1>{{ title }}</h1>
+            {{/ title }}
+            {{# text }}
+            <section class="text-container">
+                <p class="text">{{ text }}</p>
+            </section>
+            {{/ text }}
+            {{# button }}
+            <button id="next">{{ button }}</button>
+            {{/ button }}
+            {{^ button }}
+            <button id="next">Next</button>
+            {{/ button }}
+        </view>
+        </script>
+
+        <!-- Begin Experiment view -->
+        <script id="begin-exp-view" type="text/html">
+        <div class="view">
+            {{# text }}
+            <section class="text-container">
+                <p class="text">{{ text }}</p>
+            </section>
+            {{/ text }}
+            <button id="next">Begin Experiment</button>
+            </div>
+        </script>
+
+        <!-- main view (buttons response) -->
+        <script id="main-view" type="text/html">
+        <div class="view">
+            {{# title }}
+            <h1>{{ title }}</h1>
+            {{/ title }}
+            {{# text }}
+            <section class="text-container">
+                <p class="text">{{ text }}</p>
+            </section>
+            {{/ text }}
+
+            <br>
+
+            <section class="text-container">
+                <p class="story_text" id="story_text">{{ story_text }}</p>
+            </section>
+
+            <br>
+            <form>
+                <!-- add "not applicable" option -->
+
+            <br>
+            <!-- <p><u>Suspect(s)</u></p> -->
+            <p>
+                <label for="suspect_committedCrime">How likely is it that the suspect is / the suspects are guilty?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">very unlikely</span>
+                    <input type="range" id="suspect_committedCrime_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very likely</span>
+                    <br>
+                    <input type="checkbox" id="suspect_committedCrime_checkbox">Doesn't apply.
+            </p>
+            <br>
+
+            <p>
+                <label for="suspect_conviction">How <strong>likely</strong> do you believe a <strong>conviction</strong> is?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">very improbable</span>
+                    <input type="range" id="suspect_conviction_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very probable</span>
+                    <br>
+                    <input type="checkbox" id="suspect_conviction_checkbox">Doesn't apply.
+            </p>
+            <br>
+            
+            <p>
+                <label for="suspect_convictionJustified">How <strong>justified</strong> would a <strong>conviction</strong> be in your opinion?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not justified</span>
+                    <input type="range" id="suspect_convictionJustified_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very justified</span>
+                    <br>
+                    <input type="checkbox" id="suspect_convictionJustified_checkbox">Doesn't apply.
+            </p>
+            <br>
+
+            <p>
+                <label for="suspect_likability">How <strong>likable</strong> do you find the suspect(s) / arrested person(s)?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not likable</span>
+                    <input type="range" id="suspect_likability_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very likable</span>
+                    <br>
+                    <input type="checkbox" id="suspect_likability_checkbox">Doesn't apply.
+            </p>
+
+
+            <br>
+            <!-- <p><u>Author</u></p> -->
+            <p>
+                <label for="author_likability">How <strong>likable</strong> do you find the author of this story?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">very unlikable</span>
+                    <input type="range" id="author_likability_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very likable</span>
+                    <br>
+                    <input type="checkbox" id="author_likability_checkbox">Doesn't apply.
+            </p>
+            <br>
+            
+            <p>
+                <label for="author_trust">How much do you <strong>trust</strong> the author?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not at all</span>
+                    <input type="range" id="author_trust_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very much</span>
+                    <br>
+                    <input type="checkbox" id="author_trust_checkbox">Doesn't apply.
+            </p>
+            <br>
+            
+            <p>
+                <label for="author_judgmental">How <strong>judgmental</strong> do you consider the author to be?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not judgmental</span>
+                    <input type="range" id="author_judgmental_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very judgmental</span>
+                    <br>
+                    <input type="checkbox" id="author_judgmental_checkbox">Doesn't apply.
+            </p>
+            <br>
+
+            <!-- <p><u>Story</u></p> -->
+            <p>
+                <label for="story_subjectivity">How <strong>objectively / subjectively</strong> written is the story?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">very objective</span>
+                    <input type="range" id="story_subjectivity_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very subjective</span>
+                    <br>
+                    <input type="checkbox" id="story_subjectivity_checkbox">Doesn't apply.
+            </p>
+            <br>
+            
+            <p>
+                <label for="story_emotion">How <strong>emotionally</strong> is the story told?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not emotional</span>
+                    <input type="range" id="story_emotion_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very emotional</span>
+                    <br>
+                    <input type="checkbox" id="story_emotion_checkbox">Doesn't apply.
+            </p>
+            <br>
+
+            <p>
+                <label for="reader_emotion">How affected do you feel by the story?</label>
+            </p>
+            <p class="answer-container slider-container">
+                    <span class="unlikely">not affected</span>
+                    <input type="range" id="reader_emotion_slider" class="slider-response" min="0" max="100" value="50"/>
+                    <span class="likely">very affected</span>
+                    <br>
+                    <input type="checkbox" id="reader_emotion_checkbox">Doesn't apply.
+            </p>
+            <br>
+            <br>
+
+            <p class="comment-sect">
+                <label for="comments">Is there something else you would like to add?</label>
+                <textarea name="comments" id="comments"
+                rows="4" cols="60"></textarea>
+            </p>
+
+
+            </form>
+
+            <br>
+
+            <p id="error" style="visibility: hidden;">You haven't answered all of the questions yet. Please do so before you continue.</p>
+
+            {{# button }}
+            <button id="next">{{ button }}</button>
+            {{/ button }}
+            {{^ button }}
+            <button id="next">Next</button>
+            {{/ button }}
+        </div>
+        </script>
+
+        <!-- post test view -->
+        <script id="post-test-view" type="text/html">
+        <div class="view post-test-templ">
+            {{# title }}
+            <h1>{{ title }}</h1>
+            {{/ title }}
+            {{# text }}
+            <section class="text-container">
+                <p class="text">{{ text }}</p>
+            </section>
+            {{/ text }}
+            <form>
+            <p>
+                <label for="age">Age:</label>
+                <input type="number" name="age" min="18" max="110" id="age" />
+            </p>
+            <p>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option></option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                    <option value="other">other</option>
+                </select>
+            </p>
+            <p>
+                <label for="education">Level of Education:</label>
+                <select id="education" name="education">
+                    <option></option>
+                    <option value="graduated_high_school">Graduated High School</option>
+                    <option value="graduated_college">Graduated College</option>
+                    <option value="higher_degree">Higher Degree</option>
+                </select>
+            </p>
+            <p>
+                <label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
+                <input type="text" id="languages"/>
+            </p>
+            <p class="comment-sect">
+                <label for="comments">Further comments</label>
+                <textarea name="comments" id="comments"
+                rows="6" cols="40"></textarea>
+            </p>
+            {{# buttonText }}
+            <button id="next">{{ buttonText }}</button>
+            {{/ buttonText }}
+            {{^ buttonText }}
+            <button id="next">Next</button>
+            {{/ buttonText }}
+            </form>
+            </div>
+        </script>
+
+        <!-- Thanks View -->
+        <script id="thanks-view" type="x-tmpl-mustache">
+        <div class="view thanks-templ">
+            <h4 class="warning-message">submitting the data
+                <div class="loader"></div>
+            </h4>
+            {{# thanksMessage }}
+            <h1 class="thanks-message nodisplay">{{ thanksMessage }}</h1>
+            {{/ thanksMessage }}
+            {{^ thanksMessage }}
+            <h1 class="thanks-message nodisplay">Thank you for taking part in this experiment!</h1>
+            {{/ thanksMessage }}
+            {{# extraMessage }}
+            <h2 class="extra-message nodisplay">{{{ extraMessage }}}</h2>
+            {{/ extraMessage }}
+        </div>
+        </script>
+    </body>
+</html>

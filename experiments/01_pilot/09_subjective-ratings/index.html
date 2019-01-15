@@ -34,9 +34,20 @@
 
         <!-- views -->
         <script src="views/views.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            var ut_id = "6c0cb40ad91fcc0d286211ed1eda2e7d";
+            if (UTWorkerLimitReached(ut_id)) {
+                $(".slide").hide();
+                $("body").html("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
+            }
+          });
+        </script>
     </head>
 
     <body>
+
         <noscript>This task requires JavaScript. Please enable JavaScript in your browser and reload the page. For more information on how to do that, please refer to
             <a href='https://enable-javascript.com' target='_blank'>enable-javascript.com</a>
         </noscript>

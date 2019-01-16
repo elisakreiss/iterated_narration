@@ -90,7 +90,8 @@
                   $(".loading").show();
                   function looseJsonParse(obj){
                     // return Function('"mykey":"myvalue"')();
-                    return Function('"use strict";return (' + obj + ')')();
+                    return Function('"use strict";console.log(' + obj + ')')();
+                    // return Function()();
                   }
                  
                   $.ajax({

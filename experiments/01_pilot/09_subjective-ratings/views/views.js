@@ -1,3 +1,17 @@
+var recaptcha = {
+    name: "recaptcha",
+    render: function(){
+        var viewTemplate = $("#recaptcha-view").html();
+
+        $("#main").html(
+            Mustache.render(viewTemplate, {
+                name: this.name
+            })
+        );
+    },
+    trials: 1
+};
+
 var intro = {
     name: "intro",
     // introduction title

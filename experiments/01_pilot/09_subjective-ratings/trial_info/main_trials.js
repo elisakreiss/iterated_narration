@@ -2,13 +2,14 @@ var main_trials = [
 // marked persons are called "suspects" in the following questions
 	{
 		question_id: "suspect_committedCrime",
-		question: "How likely is it that the suspect is / the suspects are guilty?",
+		question: '"How likely is it that the suspect is / the suspects" + trial_info.stories.suspect + "are guilty?"',
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},
 	{
 		question_id:"suspect_conviction",
-		question: "How likely do you believe a conviction is?",
+		// question: "How likely do you believe a conviction is?",
+		question: "How likely is a conviction of the suspect(s)?",
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},

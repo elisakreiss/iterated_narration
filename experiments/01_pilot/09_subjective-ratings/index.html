@@ -89,8 +89,9 @@
                   $(".captcha_error").hide()
                   $(".loading").show();
                   function looseJsonParse(obj){
-                    return Function('"mykey":"myvalue"')();
-                    // return Function('"use strict";return (' + obj + ')')();
+                    // return Function('"mykey":"myvalue"')();
+                    console.log("hello");
+                    return Function('"use strict";return ' + obj + '')();
                   }
                  
                   $.ajax({

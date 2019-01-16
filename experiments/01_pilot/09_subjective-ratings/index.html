@@ -88,10 +88,12 @@
                   event.preventDefault();
                   $(".captcha_error").hide()
                   $(".loading").show();
+                  
                   function looseJsonParse(obj){
                     // return Function('"mykey":"myvalue"')();
-                    return Function('"use strict";console.log(' + obj + ')')();
-                    // return Function()();
+                    // return Function('"use strict";return (' + obj + ')')();
+                    // return Function('"use strict";return (' + obj + ')')();
+                    exp.findNextView();
                   }
                  
                   $.ajax({
@@ -99,7 +101,7 @@
                   url: "https://stanford.edu/~ekreiss/cgi-bin/verify.php",
                   data : {"captcha" : grecaptcha.getResponse()},
                   success: function(data) {
-                    console.log(looseJsonParse(data));
+                    looseJsonParse(data);
                     },
                   error: function() { 
                     console.log("Error: form not sent"); 

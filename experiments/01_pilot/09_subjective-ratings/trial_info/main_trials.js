@@ -1,28 +1,27 @@
 var main_trials = [
-// marked persons are called "suspects" in the following questions
 	{
 		question_id: "suspect_committedCrime",
-		question: '"How likely is it that the suspect is / the suspects" + trial_info.stories.suspect + "are guilty?"',
+		question: "How likely is it that the suspect is / the suspects are guilty? (i.e., the person/people underlined in the story)",
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},
 	{
 		question_id:"suspect_conviction",
 		// question: "How likely do you believe a conviction is?",
-		question: "How likely is a conviction of the suspect(s)?",
+		question: "How likely is a conviction of the suspect(s), i.e., the person/people underlined in the story?",
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},
 	{
 		question_id: "suspect_convictionJustified",
-		question: "How justified would a conviction be?",
+		question: "How justified would a conviction of the suspect(s), i.e., the person/people underlined in the story, be?",
 		slider_left: "not justified",
 		// at all
 		slider_right: "very justified"
 	},
 	{
 		question_id: "suspect_likability",
-		question: "How likable do you find the suspect(s)?",
+		question: "How likable do you find the suspect(s), i.e., the person/people underlined in the story?",
 		slider_left: "not likable",
 		// at all
 		slider_right: "very likable"

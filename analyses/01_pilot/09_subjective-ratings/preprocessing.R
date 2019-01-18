@@ -7,14 +7,14 @@ theme_set(theme_bw(18))
 
 df = read_csv(here("data","01_pilot","09_subjective-ratings","raw_confidential.csv"))
 
+# I really want to delete this
+
 anonymous_df = df %>% 
   filter(!is.na(worker_id)) %>% 
   mutate(id=submission_id-min(submission_id)) %>% 
   select(-worker_id,-assignment_id,-submission_id,-hit_id,-experiment_id)
 
 write.csv(anonymous_df, file = here("data","01_pilot","09_subjective-ratings","raw.csv"), row.names = FALSE)
-
-# let me just delete this
 
 glimpse(df)
 

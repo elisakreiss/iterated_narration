@@ -14,6 +14,8 @@ anonymous_df = df %>%
 
 write.csv(anonymous_df, file = here("data","01_pilot","09_subjective-ratings","raw.csv"), row.names = FALSE)
 
+# let me just delete this
+
 glimpse(df)
 
 # other info

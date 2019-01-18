@@ -5,21 +5,14 @@ library(here)
 
 theme_set(theme_bw(18))
 
-# df = read_csv(here("data","01_pilot","07_revised06","raw_confidential.csv"))
-# 
-# anonymous_df = select(df,-workerId)
-# anonymous_df$submission_id = anonymous_df$submission_id - min(unique(anonymous_df$submission_id)) + 1
-# 
-# write.csv(anonymous_df, file = here("data","01_pilot","07_revised06","raw.csv"), row.names = FALSE)
+df = read_csv(here("data","01_pilot","09_subjective-ratings","raw_confidential.csv"))
 
-df1 = read_csv(here("data","01_pilot","09_subjective-ratings","results1.csv"))
-df1$subj = 1
-df2 = read_csv(here("data","01_pilot","09_subjective-ratings","results2.csv"))
-df2$subj = 2
-df3 = read_csv(here("data","01_pilot","09_subjective-ratings","results3.csv"))
-df3$subj = 3
+anonymous_df = df %>% 
+  filter(!is.na(worker_id)) %>% 
+  mutate(id=submission_id-min(submission_id)) %>% 
+  select(-worker_id,-assignment_id,-submission_id,-hit_id,-experiment_id)
 
-df = bind_rows(df1, df2, df3)
+write.csv(anonymous_df, file = here("data","01_pilot","09_subjective-ratings","raw.csv"), row.names = FALSE)
 
 glimpse(df)
 
@@ -57,7 +50,35 @@ grid.arrange(p_age,p_gen,p_edu,p_lang,p_enj,p_time)
 
 unique(df_subj$comments)
 
+# HitCorrect
+
 # plots
+
+# attention checks:
+control1_fail = df[df$trial_type=="control1_false" & df$slider_val>50 & df$box_checked=="false",]$id
+control2_fail = df[df$trial_type=="control2_false" & df$slider_val>50 & df$box_checked=="false",]$id
+control3_fail = df[df$trial_type=="control3_true" & df$slider_val<50 & df$box_checked=="false",]$id
+control4_fail = df[df$trial_type=="control4_true" & df$slider_val>50 & df$box_checked=="false",]$id
+# 13, 7, 10
+
+df_clean = df %>% 
+  filter(!((id==7)|(id==10)|(id==13))) %>% 
+  select(id,generation,chain,trial_type,question,slider_val,box_checked,story_reproduction,story_title,trial_number)
+
+df_x = df_clean
+
+df_corr = df_x %>% 
+  select(id,trial_type,slider_val) %>% 
+  group_by(id) %>% 
+  spread(trial_type,slider_val) %>% 
+  ungroup() %>% 
+  select(-id,-control1_false,-control2_false,-control3_true,-control4_true)
+
+chart.Correlation(df_corr, histogram=TRUE, pch=19)
+res = cor(df_corr)
+corrplot(res, method = "number", type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45)
+
 
 # condition split-up!
 

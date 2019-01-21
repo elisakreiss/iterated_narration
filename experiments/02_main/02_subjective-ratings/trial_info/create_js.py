@@ -2,13 +2,13 @@ import csv
 import json
 
 csvfile = open('reproduction-data.csv', 'r')
-jsfile = open('main_trials.js', 'w+')
+jsfile = open('stories.js', 'w+')
 
 fieldnames = ("chain","generation","reproduction","story_title")
 reader = csv.DictReader( csvfile, fieldnames, delimiter=";")
 
 i=0
-jsfile.write("var main_trials = [ \n")
+jsfile.write("var story = [ \n")
 for row in reader:
 	if i != 0: 
 		print row

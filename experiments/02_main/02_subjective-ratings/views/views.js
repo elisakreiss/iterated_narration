@@ -1,10 +1,24 @@
+var recaptcha = {
+    name: "recaptcha",
+    render: function(){
+        var viewTemplate = $("#recaptcha-view").html();
+
+        $("#main").html(
+            Mustache.render(viewTemplate, {
+                name: this.name
+            })
+        );
+    },
+    trials: 1
+};
+
 var intro = {
     name: "intro",
     // introduction title
     title: "ALPS lab Stanford",
     // introduction text
     text:
-        "Thank you for participating in our study. In this study you’ll answer questions about a story that you’ll read. It will approximately take <strong>???</strong> minutes.<br>Note: The story might include sensitive content.",
+        "Thank you for participating in our study. In this study you’ll answer questions about a story that you’ll read. It will take approximately <strong>3</strong> minutes.<br>Note: The story might include sensitive content.",
     legal_info:
         "<strong>LEGAL INFORMATION</strong>:<br><br>We invite you to participate in a research study on language production and comprehension.<br>Your experimenter will ask you to do a linguistic task such as reading sentences or words, naming pictures or describing scenes, making up sentences of your own, or participating in a simple language game.<br><br>You will be paid for your participation at the posted rate.<br><br>There are no risks or benefits of any kind involved in this study.<br><br>If you have read this form and have decided to participate in this experiment, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to do particular tasks. Your individual privacy will be maintained in all published and written data resulting from the study.<br>You may print this form for your records.<br><br>CONTACT INFORMATION:<br>If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should contact the Protocol Director Meghan Sumner at <br>(650)-725-9336<br><br>If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.<br><br>If you agree to participate, please proceed to the study tasks.",
     // introduction's slide proceeding button text
@@ -61,10 +75,40 @@ var intro = {
     trials: 1
 };
 
+var beginMainExp = {
+    name: "beginMainExp",
+    // introduction title
+    title: "Read the Story",
+    // introduction text
+    text:
+        "Please, read the following text. When you're done, press <strong>Next</strong> to show the first question.",
+    // introduction's slide proceeding button text
+    // buttonText: "Next",
+    // render function renders the view
+    render: function() {
+        var viewTemplate = $("#begin-exp-view").html();
+
+        $("#main").html(
+            Mustache.render(viewTemplate, {
+                title: this.title,
+                text: this.text,
+                story_text: exp.trial_info.stories.reproduction
+            })
+        );
+
+        // moves to the next view
+        $("#next").on("click", function() {
+            exp.findNextView();
+        });
+    },
+    // for how many trials should this view be repeated?
+    trials: 1
+};
+
 var main = {
     name: "main",
     title: "Questions",
-    text: "Read the story and answer the questions below.",
+    text: "<br><strong>Note</strong>: The underlined in the story may be referred to as suspects in the question.",
     render: function(CT) {
         // fill variables in view-template
         var viewTemplate = $("#main-view").html();
@@ -73,131 +117,69 @@ var main = {
             Mustache.render(viewTemplate, {
                 title: this.title,
                 text: this.text,
-                story_text: exp.trial_info.main_trials[CT].reproduction
+                story_text: exp.trial_info.stories.reproduction,
+                question: exp.trial_info.main_trials[CT].question,
+                slider_left: exp.trial_info.main_trials[CT].slider_left,
+                slider_right: exp.trial_info.main_trials[CT].slider_right,
             })
         );
 
-        function create_obj(name){
-            return {
-                question: name,
-                slider_changed: false,
-                slider_val: $('#'+name+'_slider').val(),
-                box_checked: false
+        // $("#story_comments").val(exp.global_data.story_comments);
+
+        var slider = $('#slider');
+        var slider_changed = false;
+        slider.on('click', function() {
+            slider_changed = true;
+            $("#error").css({"visibility": "hidden"});
+            console.log("Yey, you clicked the slider and possibly changed the value");
+        });
+
+        var box_checked = false;
+        $('input[id=checkbox]').change(function(){
+            if($(this).is(':checked')) {
+                box_checked = true;
+                $('#slider_box').css("opacity", "0.2");
+                $("#error").css({"visibility": "hidden"});
+                console.log("Yey, you checked the box!");
+                console.log("$('#checkox')");
+                console.log($('#checkbox').prop('checked'));
+            } else {
+                box_checked = false;
+                $('#slider_box').css("opacity", "1");
+                console.log("Yey, you unchecked the box!");
+                console.log("$('#checkox')");
+                console.log($('#checkbox').prop('checked'));
             }
-        };
+        });
 
-        function update_sliderChange(name,obj){
-            var slider = $('#'+name+'_slider');
-            slider.on('change', function() {
-                obj.slider_changed = true;
-                obj.slider_val = slider.val();
-                console.log("Yey, you changed the value to " + obj.slider_val);
-            });
-            var box = name + '_checkbox';
-            $('input[id='+box+']').change(function(){
-                if($(this).is(':checked')) {
-                    obj.box_checked = true;
-                    console.log("Yey, you checked the box!");
-                } else {
-                    obj.box_checked = false;
-                    console.log("Yey, you unchecked the box!");
-                }
-            });
-        };
-
-        // Suspect
-        var suspect_committedCrime = create_obj("suspect_committedCrime");
-        update_sliderChange("suspect_committedCrime",suspect_committedCrime);
-
-        var suspect_likability = create_obj("suspect_likability");
-        update_sliderChange("suspect_likability",suspect_likability);
-
-        var suspect_conviction = create_obj("suspect_conviction");
-        update_sliderChange("suspect_conviction",suspect_conviction);
-
-        var suspect_convictionJustified = create_obj("suspect_convictionJustified");
-        update_sliderChange("suspect_convictionJustified",suspect_convictionJustified);
-
-        // Author
-        var author_likability = create_obj("author_likability");
-        update_sliderChange("author_likability",author_likability);
-
-        var author_trust = create_obj("author_trust");
-        update_sliderChange("author_trust",author_trust);
-
-        var author_judgmental = create_obj("author_judgmental");
-        update_sliderChange("author_judgmental",author_judgmental);
-
-        // Story
-        var story_subjectivity = create_obj("story_subjectivity");
-        update_sliderChange("story_subjectivity",story_subjectivity);
-
-        var story_emotion = create_obj("story_emotion");
-        update_sliderChange("story_emotion",story_emotion);
-
-        // Reader
-        var reader_emotion = create_obj("reader_emotion");
-        update_sliderChange("reader_emotion",reader_emotion);
-
-        var list = _.shuffle([suspect_committedCrime,suspect_likability,suspect_conviction,suspect_convictionJustified,author_likability,author_trust,author_judgmental,story_subjectivity,story_emotion,reader_emotion]);
-
-        function all_questions_answered(list){
-            var i;
-            for (i = 0; i < list.length; i++) { 
-                if (list[i].slider_changed == false & list[i].box_checked == false){
-                    console.log(list[i]);
-                    return false;
-                };
-            };
-            return true;
-        };
 
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
         $("#next").on("click", function() {
-            if (all_questions_answered(list) == true){
+            if (slider_changed == true || box_checked == true){
                 var RT = Date.now() - startingTime; // measure RT before anything else
                 var trial_data = {
-                    trial_type: "mainForcedChoice",
+                    trial_type: exp.trial_info.main_trials[CT].question_id,
                     trial_number: CT + 1,
-                    story_reproduction: exp.trial_info.main_trials[CT].reproduction,
-                    story_title:exp.trial_info.main_trials[CT].story_title,
-                    generation:exp.trial_info.main_trials[CT].generation,
-                    chain:exp.trial_info.main_trials[CT].chain,
-                    suspect_committedCrime_slider: suspect_committedCrime.slider_val,
-                    suspect_committedCrime_checkbox: suspect_committedCrime.box_checked,
-                    suspect_likability_slider: suspect_likability.slider_val,
-                    suspect_likability_checkbox: suspect_likability.box_checked,
-                    suspect_conviction_slider: suspect_conviction.slider_val,
-                    suspect_conviction_checkbox: suspect_conviction.box_checked,
-                    suspect_convictionJustified_slider: suspect_convictionJustified.slider_val,
-                    suspect_convictionJustified_checkbox: suspect_convictionJustified.box_checked,
-                    author_likability_slider: author_likability.slider_val,
-                    author_likability_checkbox: author_likability.box_checked,
-                    author_trust_slider: author_trust.slider_val,
-                    author_trust_checkbox: author_trust.box_checked,
-                    author_judgmental_slider: author_judgmental.slider_val,
-                    author_judgmental_checkbox: author_judgmental.box_checked,
-                    story_subjectivity_slider: story_subjectivity.slider_val,
-                    story_subjectivity_checkbox: story_subjectivity.box_checked,
-                    story_emotion_slider: story_emotion.slider_val,
-                    story_emotion_checkbox: story_emotion.box_checked,
-                    reader_emotion_slider: reader_emotion.slider_val,
-                    reader_emotion_checkbox: reader_emotion.box_checked
+                    question: exp.trial_info.main_trials[CT].question,
+                    slider_left: exp.trial_info.main_trials[CT].slider_left,
+                    slider_right: exp.trial_info.main_trials[CT].slider_right,
+                    slider_val: $('#slider').val(),
+                    box_checked: $('#checkbox').prop('checked')
                 };
+                // exp.global_data.story_comments = $("#story_comments").val();
                 exp.trial_data.push(trial_data);
                 exp.findNextView();
             } else {
-                //display error "you haven't changed all sliders yet, please answer question..."
-                console.log($("#error"));
-                $("#error").css({"visibility": "visible"});;
-            }
+                console.log($("#error"));    
+                $("#error").css({"visibility": "visible"});
+            };
         });
 
         // record trial starting time
         var startingTime = Date.now();
     },
-    trials: 1
+    trials: 15
 };
 
 
@@ -222,10 +204,12 @@ var postTest = {
             e.preventDefault();
 
             // records the post test info
+            exp.global_data.HitCorrect = $("#HitCorrect").val();
             exp.global_data.age = $("#age").val();
             exp.global_data.gender = $("#gender").val();
             exp.global_data.education = $("#education").val();
             exp.global_data.languages = $("#languages").val();
+            exp.global_data.enjoyment = $("#enjoyment").val();
             exp.global_data.comments = $("#comments")
                 .val()
                 .trim();

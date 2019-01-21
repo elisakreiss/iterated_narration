@@ -5,14 +5,10 @@ exp.customize = function() {
     this.global_data.startTime = Date.now();
     // specify view order
     this.views_seq = [
+        // recaptcha,
         intro,
-        // instructions,
-        // practice,
-        // beginMainExp,
-        main,
-        /*loop([practice,
         beginMainExp,
-        main], 2),*/
+        main,
         postTest,
         thanks
     ];
@@ -20,7 +16,14 @@ exp.customize = function() {
     // prepare information about trials (procedure)
     // randomize main trial order, but keep practice trial order fixed
     this.trial_info.main_trials = _.shuffle(main_trials);
-    // this.trial_info.practice_trials = practice_trials;
+    this.trial_info.stories = _.shuffle(story)[0];
+
+    this.global_data.story_reproduction = this.trial_info.stories.reproduction;
+    this.global_data.story_title = this.trial_info.stories.story_title;
+    this.global_data.generation = this.trial_info.stories.generation;
+    this.global_data.chain = this.trial_info.stories.chain;
+
+    // this.global_data.story_comments = "";
 
     // adds progress bars to the views listed
     // view's name is the same as object's name

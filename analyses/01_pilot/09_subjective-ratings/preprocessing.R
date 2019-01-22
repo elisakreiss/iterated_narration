@@ -81,7 +81,8 @@ df.pca$rotation
 # condition split-up!
 
 df_plots_slider = df %>% 
-  filter(box_checked=="false") 
+  filter(box_checked==FALSE) %>% 
+  filter(generation==1)
 
 p_slider = ggplot(df_plots_slider,aes(x=trial_type,y=slider_val)) +
   geom_point(alpha = 0.2,
@@ -99,7 +100,7 @@ p_slider = ggplot(df_plots_slider,aes(x=trial_type,y=slider_val)) +
                fill = "red",
                color = "black",
                size = 4) +
-  # facet_grid(rows = vars(generation)) +
+  facet_grid(rows = vars(story_title)) +
   theme(axis.text.x = element_text(angle = 45))
 
 # TODO: needs to be separated by generation

@@ -108,6 +108,71 @@ Strongest correlations:<br>
 
 Story_emotion and author_judgmental each correlate with eacher other and one more question (story_emotion: reader_emotion; author_judgmental: story_subjectivity.)
 
+## Qualitative results of two reproductions (each generation 1)
+
+```{r qualitative, fig.height=8, fig.width=12, echo=FALSE}
+df_clean = df %>%
+  mutate(response=ifelse(box_checked==FALSE,slider_val,NA)) %>% 
+  select(id,generation,chain,trial_type,response,story_title) %>%
+  # select(id,trial_type,response) %>%
+  group_by(id) %>% 
+  spread(trial_type,response) %>% 
+  ungroup() %>% 
+  mutate(pay_attention=ifelse(((control1_false>50) + (control2_false>50) + (control3_true<50) + (control4_true>50)) > 2,FALSE,TRUE)) %>% 
+  filter(pay_attention==TRUE) %>%  
+  gather(question,value,-id,-pay_attention,-generation,-chain,-story_title) %>% 
+  select(-pay_attention,-chain)
+
+df_plots_slider = df_clean %>% 
+  filter(!is.na(value)) %>% 
+  filter(generation==1)
+  # filter(!str_detect(question,"control"))
+
+ggplot(df_plots_slider,aes(x=reorder(question,value),y=value,group=story_title,fill=story_title,color=story_title)) +
+# ggplot(df_plots_slider,aes(x=question,y=value,group=story_title,fill=story_title,color=story_title)) +
+  geom_point(alpha = 0.2,
+             # position = position_jitter(width = 0.1, height = 0),
+             position = position_dodge(width=.4),
+             size = 2) + 
+  # error bars 
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               # color = "black",
+               size = 1,
+               position = position_dodge(width=.4)) + 
+  # means
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               shape = 21,
+               # fill = "red",
+               # color = "black",
+               size = 4,
+               position = position_dodge(width=.4)) +
+  # facet_grid(rows = vars(story_title)) +
+  theme(axis.text.x = element_text(angle = 45,hjust=1))
+
+# df_plots_box = df_clean %>% 
+#   filter(is.na(value)) %>% 
+#   filter(generation==1) %>% 
+#   select(box_checked,trial_type) %>% 
+#   group_by(trial_type,box_checked) %>% 
+#   summarize(total_count = n()) %>%
+#   spread(key=box_checked,value=total_count)
+#   # filter(!str_detect(question,"control"))  
+# 
+# p_checkbox = ggplot(df_plots_box,aes(x=question,y=true)) +
+#   geom_bar(stat = "identity",
+#            fill = "orange") +
+#   facet_grid(rows = vars(story_title)) +
+#   theme(axis.text.x = element_text(angle = 45))
+
+# grid.arrange(p_slider,p_checkbox)
+    
+```
+
+
+
+
 
 
 

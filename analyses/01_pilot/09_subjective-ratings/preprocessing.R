@@ -81,7 +81,7 @@ df.pca$rotation
 # condition split-up!
 
 df_plots_slider = df %>% 
-  filter(box_checked=="false")
+  filter(box_checked=="false") 
 
 p_slider = ggplot(df_plots_slider,aes(x=trial_type,y=slider_val)) +
   geom_point(alpha = 0.2,

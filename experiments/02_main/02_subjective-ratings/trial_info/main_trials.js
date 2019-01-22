@@ -1,30 +1,39 @@
 var main_trials = [
 	{
+		question_id: "evidence",
+		question: "How compelling is the evidence?",
+		slider_left: "not at all",
+		slider_right: "very much"
+	},
+	{
 		question_id: "suspect_committedCrime",
-		question: "How likely is it that the suspect is / the suspects are guilty? (i.e., the person/people underlined in the story)",
+		// question: "How likely is it that the suspect is / the suspects are guilty? (i.e., the person/people underlined in the story)",
+		question: "How likely is it that the suspect is / the suspects in the crime are guilty? --insert--",
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},
 	{
 		question_id:"suspect_conviction",
-		question: "How likely is a conviction of the suspect(s), i.e., the person/people underlined in the story?",
+		// question: "How likely is a conviction of the suspect(s), i.e., the person/people underlined in the story?",
+		question: "How likely is a conviction of the suspect(s) in the crime --insert--?",
 		slider_left: "very unlikely",
 		slider_right: "very likely"
 	},
 	{
 		question_id: "suspect_convictionJustified",
-		question: "How justified would a conviction of the suspect(s), i.e., the person/people underlined in the story, be?",
+		// question: "How justified would a conviction of the suspect(s), i.e., the person/people underlined in the story, be?",
+		question: "How justified would a conviction of the suspect(s) --insert-- be?",
 		slider_left: "not justified",
 		// at all
 		slider_right: "very justified"
 	},
-	{
-		question_id: "suspect_likability",
-		question: "How likable do you find the suspect(s), i.e., the person/people underlined in the story?",
-		slider_left: "not likable",
-		// at all
-		slider_right: "very likable"
-	},
+	// {
+	// 	question_id: "suspect_likability",
+	// 	question: "How likable do you find the suspect(s), i.e., the person/people underlined in the story?",
+	// 	slider_left: "not likable",
+	// 	// at all
+	// 	slider_right: "very likable"
+	// },
 	// 
 	// Not that relevant
 	// {
@@ -34,21 +43,27 @@ var main_trials = [
 	// 	slider_right: "very likable"
 	// },
 	// 
-	// Strong correlation with info_reliability
-	// {
-	// 	question_id: "author_trust",
-	// 	question: "How much do you trust the author?",
-	// 	slider_left: "not at all",
-	// 	slider_right: "very much"
-	// },
 	// 
-	// correlates with story_subjectivity and story_emotion
 	{
-		question_id: "author_judgmental",
-		question: "How judgmental is the author?",
-		slider_left: "not judgmental",
-		slider_right: "very judgmental"
+		question_id: "author_belief",
+		question: "How much does the author believe that the suspect --insert-- is guilty?",
+		slider_left: "not at all",
+		slider_right: "very much"
 	},
+	// Strong correlation with info_reliability
+	{
+		question_id: "author_trust",
+		question: "How much do you trust the author?",
+		slider_left: "not at all",
+		slider_right: "very much"
+	},
+	// correlates with story_subjectivity and story_emotion
+	// {
+	// 	question_id: "author_judgmental",
+	// 	question: "How judgmental is the author?",
+	// 	slider_left: "not judgmental",
+	// 	slider_right: "very judgmental"
+	// },
 	{
 		question_id: "story_subjectivity",
 		question: "How objectively / subjectively written is the story?",
@@ -68,12 +83,12 @@ var main_trials = [
 		slider_left: "not affected",
 		slider_right: "very affected"
 	},
-	{
-		question_id: "info_reliability",
-		question: "How reliable do you consider the presented information to be?",
-		slider_left: "very unreliable",
-		slider_right: "very reliable"
-	},
+	// {
+	// 	question_id: "info_reliability",
+	// 	question: "How reliable do you consider the presented information to be?",
+	// 	slider_left: "very unreliable",
+	// 	slider_right: "very reliable"
+	// },
 	{
 		question_id: "control1_false",
 		question: "How likely is it that this story is a Greek fairy tale?",
@@ -93,8 +108,7 @@ var main_trials = [
 		slider_right: "very likely"
 	},
 	{
-		question_id: "control4_true",
-		// question: "How reasonable is it to say that this is a story involving birds?",
+		question_id: "control4_birds",
 		question: "How reasonable is it to say that this is a story involving birds?",
 		slider_left: "not reasonable",
 		slider_right: "very reasonable"

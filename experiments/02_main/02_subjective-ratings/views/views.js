@@ -113,6 +113,13 @@ var main = {
         // fill variables in view-template
         var viewTemplate = $("#main-view").html();
 
+        if (_.includes(exp.trial_info.stories.reproduction, "<u>")){
+            exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","(i.e., the person/people underlined in the story)");
+        } else {
+            exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","");
+        };
+        
+
         $("#main").html(
             Mustache.render(viewTemplate, {
                 title: this.title,
@@ -156,7 +163,7 @@ var main = {
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
         $("#next").on("click", function() {
-            if (slider_changed == true || box_checked == true){
+            if (slider_changed == true || box_checked == true || $('#slider').val() != 50){
                 var RT = Date.now() - startingTime; // measure RT before anything else
                 var trial_data = {
                     trial_type: exp.trial_info.main_trials[CT].question_id,

@@ -11,6 +11,8 @@ library(here)
 # 
 # write.csv(anonymous_df, file = here("data","02_main","01_reproduction-inLab","raw.csv"), row.names = FALSE)
 
+theme_set(theme_bw(18))
+
 df = read_csv(here("data","02_main","01_reproduction-inLab","raw.csv"))
 
 ##################
@@ -25,7 +27,7 @@ d_flowchart[d_flowchart$deadend=="true" & !d_flowchart$generation==5,]
 
 d_flowchart$story_text = gsub("(.{201,}?)\\s", "\\1\n", d_flowchart$story_text)
 d_flowchart$reproduction = gsub("(.{61,}?)\\s", "\\1\n", d_flowchart$reproduction)
-write.csv(d_flowchart, file = here("data","02_main","01_reproduction-inLab","flowchart_data.csv"), row.names = FALSE)
+# write.csv(d_flowchart, file = here("data","02_main","01_reproduction-inLab","flowchart_data.csv"), row.names = FALSE)
 
 ##########################
 # Subjective Rating Data #
@@ -75,7 +77,38 @@ d_subj_ratings = df %>%
 
 # table(d_subj_ratings$chain,d_subj_ratings$generation)
 
-write.table(d_subj_ratings, file = here("experiments","02_main","02_subjective-ratings","trial_info","reproduction-data.csv"), sep=";", row.names = FALSE, qmethod = "double")
+# write.table(d_subj_ratings, file = here("experiments","02_main","02_subjective-ratings","trial_info","reproduction-data.csv"), sep=";", row.names = FALSE, qmethod = "double")
+
+#######################
+# Sub-Corpus analysis #
+#######################
+
+df_clean = d_subj_ratings %>%
+  mutate(NumOfChars=str_length(reproduction)) %>% 
+  mutate(NumOfWords=str_count(reproduction, boundary("word")))
+
+# 0.9950305
+cor(df_clean$NumOfChars,df_clean$NumOfWords)
+
+plot_corpus_length = ggplot(data = df_clean, mapping = aes(x = generation, y = NumOfWords)) +
+  # individual data points (jittered horizontally)
+  geom_point(alpha = 0.2,
+             position = position_jitter(width = 0.1, height = 0),
+             size = 2) + 
+  # error bars 
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               color = "black",
+               size = 1) + 
+  # means
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               shape = 21,
+               fill = "red",
+               color = "black",
+               size = 4) 
+
+ggsave(plot_corpus_length,path = here("writing","2019_cogsci","graphs","corpus_length.png"))
 
 ################################
 # Subjective Rating Pilot Data #

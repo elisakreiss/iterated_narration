@@ -113,9 +113,13 @@ var main = {
         // fill variables in view-template
         var viewTemplate = $("#main-view").html();
 
+        console.log(exp.trial_info.main_trials[CT]);
+
         if (_.includes(exp.trial_info.stories.reproduction, "<u>")){
+            console.log("<u>");
             exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","(i.e., the person/people underlined in the story)");
         } else {
+            console.log("no <u>");
             exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","");
         };
         
@@ -163,7 +167,8 @@ var main = {
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
         $("#next").on("click", function() {
-            if (slider_changed == true || box_checked == true || $('#slider').val() != 50){
+            // if (slider_changed == true || box_checked == true || $('#slider').val() != 50){
+            if (slider_changed == true || $('#slider').val() != 50){
                 var RT = Date.now() - startingTime; // measure RT before anything else
                 var trial_data = {
                     trial_type: exp.trial_info.main_trials[CT].question_id,
@@ -171,8 +176,8 @@ var main = {
                     question: exp.trial_info.main_trials[CT].question,
                     slider_left: exp.trial_info.main_trials[CT].slider_left,
                     slider_right: exp.trial_info.main_trials[CT].slider_right,
-                    slider_val: $('#slider').val(),
-                    box_checked: $('#checkbox').prop('checked')
+                    slider_val: $('#slider').val()
+                    // box_checked: $('#checkbox').prop('checked')
                 };
                 // exp.global_data.story_comments = $("#story_comments").val();
                 exp.trial_data.push(trial_data);
@@ -186,7 +191,7 @@ var main = {
         // record trial starting time
         var startingTime = Date.now();
     },
-    trials: 15
+    trials: 12
 };
 
 

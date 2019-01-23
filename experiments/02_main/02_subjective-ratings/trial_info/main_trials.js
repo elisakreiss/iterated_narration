@@ -1,7 +1,8 @@
 var main_trials = [
 	{
 		question_id: "evidence",
-		question: "How compelling is the evidence?",
+		// ADD INSERT
+		question: "How strong is the evidence for the suspect's / suspects' guilt?",
 		slider_left: "not at all",
 		slider_right: "very much"
 	},
@@ -22,7 +23,7 @@ var main_trials = [
 	{
 		question_id: "suspect_convictionJustified",
 		// question: "How justified would a conviction of the suspect(s), i.e., the person/people underlined in the story, be?",
-		question: "How justified would a conviction of the suspect(s) --insert-- be?",
+		question: "How justified would a conviction of the suspect(s) in the crime --insert-- be?",
 		slider_left: "not justified",
 		// at all
 		slider_right: "very justified"

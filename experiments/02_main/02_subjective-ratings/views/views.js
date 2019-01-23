@@ -114,6 +114,7 @@ var main = {
         var viewTemplate = $("#main-view").html();
 
         console.log(exp.trial_info.main_trials[CT]);
+        var underlined = true;
 
         if (_.includes(exp.trial_info.stories.reproduction, "<u>")){
             console.log("<u>");
@@ -121,6 +122,7 @@ var main = {
         } else {
             console.log("no <u>");
             exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","");
+            underlined = false;
         };
         
 
@@ -176,7 +178,8 @@ var main = {
                     question: exp.trial_info.main_trials[CT].question,
                     slider_left: exp.trial_info.main_trials[CT].slider_left,
                     slider_right: exp.trial_info.main_trials[CT].slider_right,
-                    slider_val: $('#slider').val()
+                    slider_val: $('#slider').val(),
+                    suspect_underlined: underlined
                     // box_checked: $('#checkbox').prop('checked')
                 };
                 // exp.global_data.story_comments = $("#story_comments").val();

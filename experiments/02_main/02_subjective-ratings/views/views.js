@@ -116,6 +116,7 @@ var main = {
         console.log(exp.trial_info.main_trials[CT]);
         var underlined = true;
 
+        // adjust question depending on whether there is something underlined in the story (suspect marking)
         if (_.includes(exp.trial_info.stories.reproduction, "<u>")){
             console.log("<u>");
             exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","(i.e., the person/people underlined in the story)");
@@ -124,6 +125,27 @@ var main = {
             exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("--insert--","");
             underlined = false;
         };
+        
+        // adjust fourth control question
+        if (exp.trial_info.main_trials[CT].question_id == "control4_storydependent"){
+            var repl;
+
+            if (_.includes(exp.global_data.story_title,"scam")){
+                repl = "a scam";
+            } else if (_.includes(exp.global_data.story_title,"smuggler")){
+                repl = "smuggling";
+            } else if (_.includes(exp.global_data.story_title,"professor")){
+                repl = "a professor";
+            } else if (_.includes(exp.global_data.story_title,"arson")){
+                repl = "arson";
+            } else if (_.includes(exp.global_data.story_title,"bees")){
+                repl = "bees";
+            } else {
+                repl = "a crime";
+            }
+            
+            exp.trial_info.main_trials[CT].question = exp.trial_info.main_trials[CT].question.replace("xxx",repl);
+        }
         
 
         $("#main").html(

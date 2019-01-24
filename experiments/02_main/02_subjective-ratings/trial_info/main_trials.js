@@ -109,8 +109,8 @@ var main_trials = [
 		slider_right: "very likely"
 	},
 	{
-		question_id: "control4_birds",
-		question: "How reasonable is it to say that this is a story involving birds?",
+		question_id: "control4_storydependent",
+		question: "How reasonable is it to say that this is a story involving xxx?",
 		slider_left: "not reasonable",
 		slider_right: "very reasonable"
 	}

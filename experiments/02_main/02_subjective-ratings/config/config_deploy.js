@@ -12,8 +12,8 @@ var config_deploy = {
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    // "deployMethod": "MTurk",
-    "deployMethod": "directLink",
+    "deployMethod": "MTurk",
+    // "deployMethod": "directLink",
     // "deployMethod": "MTurkSandbox",
     // "deployMethod": "debug",
 

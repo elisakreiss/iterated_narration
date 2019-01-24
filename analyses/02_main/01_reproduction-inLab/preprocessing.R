@@ -104,11 +104,13 @@ plot_corpus_length = ggplot(data = df_clean, mapping = aes(x = generation, y = N
   stat_summary(fun.y = "mean",
                geom = "point",
                shape = 21,
-               fill = "red",
+               fill = "#E6AB02",
                color = "black",
-               size = 4) 
+               size = 4) +
+  ylab("Number of Words") +
+  xlab("Generation")
 
-ggsave(plot_corpus_length,path = here("writing","2019_cogsci","graphs","corpus_length.png"))
+ggsave(filename="corpus_length.png",plot=plot_corpus_length,path = here("writing","2019_cogsci","graphs"),width = 6,height = 4)
 
 ################################
 # Subjective Rating Pilot Data #

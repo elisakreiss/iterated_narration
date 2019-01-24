@@ -1,0 +1,195 @@
+---
+title: "09_subj-ratings_analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(cowplot)
+library(tidyverse)
+library(summarytools)
+library(gridExtra)
+library(corrplot)
+library(here)
+
+theme_set(theme_bw(18))
+theme_set(theme_cowplot(font_size=12))
+```
+
+```{r import data, include=FALSE}
+df = read_csv(here("data","02_main","02_subjective-ratings","raw_confidential.csv")) %>% 
+  select(story_title,generation,slider_val,trial_type) %>% 
+  mutate(condition=ifelse(str_detect(story_title,"free"),"weak evidence","strong evidence"))
+```
+
+Overall: 72 participants
+
+## Additional Info
+
+```{r info, eval=FALSE, fig.height=11, fig.width=9, message=FALSE, warning=FALSE, include=FALSE}
+
+# other info
+df_subj = df %>% 
+  select(id,age,gender,education,languages,enjoyment,timeSpent,HitCorrect) %>% 
+  distinct() %>% 
+  mutate_at(vars(languages), funs(str_to_lower(.))) %>% 
+  mutate_at(vars(age), funs(as.integer(.))) %>% 
+  mutate_at(vars(HitCorrect),
+            funs(ifelse(HitCorrect==0,"no",ifelse(HitCorrect==404,"confused","yes")))) %>% 
+  mutate_at(vars(education), funs(str_replace_all(.,"graduated_", "")))
+
+p_age = ggplot(df_subj,aes(x=age)) + 
+  geom_bar(width = .5,
+           fill = "orange") 
+
+p_gen = ggplot(df_subj,aes(x=gender)) +
+  geom_bar(width = .5,
+           fill = "orange")
+
+p_edu = ggplot(df_subj,aes(x=education)) +
+  geom_bar(width = .5,
+           fill = "orange") +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1))
+
+p_lang = ggplot(df_subj,aes(x=languages)) +
+  geom_bar(width = .5,
+           fill = "orange")
+
+p_enj = ggplot(df_subj,aes(x=enjoyment)) + 
+  geom_bar(width = .5,
+           fill = "orange")
+
+p_time = ggplot(df_subj,aes(x=timeSpent)) +
+  geom_histogram(fill = "orange")
+
+p_HitCorrect = ggplot(df_subj,aes(x=HitCorrect)) + 
+  geom_bar(width = .5,
+           fill = "orange") 
+
+plot_grid(p_age,p_gen,p_edu,p_lang,p_enj,p_time,p_HitCorrect, labels = "AUTO", ncol = 2, align = 'v')
+# grid.arrange(p_age,p_gen,p_edu,p_lang,p_enj,p_time,p_HitCorrect)
+```
+
+```{r per_condition}
+df_cond = df %>% 
+  select(-story_title) %>% 
+  mutate_at(vars(generation),funs(as.character(generation))) %>% 
+  filter(!str_detect(trial_type,"control"))
+```
+
+```{r per_condition_plot}
+
+ggplot(df_cond,
+       aes(x=trial_type,
+           y=slider_val,
+           group=generation,
+           fill=generation)) +
+  stat_summary(fun.y = "mean",
+               geom = "bar",
+               position = position_dodge(width = 0.9)) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               color = "darkgrey", 
+               position = position_dodge(width = 0.9)) +
+  facet_wrap(vars(condition),nrow=2) +
+  # facet_wrap(vars(condition),nrow=1) +
+  ylab("Average Slider Rating") +
+  scale_fill_manual(name = "Generation",
+                    values=c("#E6AB02","#FB3640","#7CB637","#4C3B4D","#4381C1","#08415C")) +
+  theme(axis.title.x = element_blank()) +
+  theme(axis.text.x = element_text(angle = 45,hjust=1)) +
+  # theme(strip.background = element_rect(fill = "white",linetype = 1,color="red"))
+  theme(strip.background = element_rect(fill = NA, colour = NA))
+```
+
+
+## Correlation between questions
+
+```{r correlation, echo=FALSE, fig.height=9, fig.width=9}
+df_clean = df %>%
+  select(id,generation,chain,trial_type,question,slider_val,box_checked,story_reproduction,story_title,trial_number)
+
+df_corr = df_clean %>% 
+  mutate(response=ifelse(box_checked=="false",slider_val,NA)) %>% 
+  select(id,trial_type,slider_val) %>% 
+  group_by(id) %>% 
+  spread(trial_type,slider_val) %>% 
+  ungroup() %>% 
+  mutate(pay_attention=ifelse(((control1_false>50) + (control2_false>50) + (control3_true<50) + (control4_true>50)) > 2,FALSE,TRUE)) %>% 
+  filter(pay_attention==TRUE) %>%  
+  select(-id,-control1_false,-control2_false,-control3_true,-control4_true, -pay_attention)
+
+# chart.Correlation(df_corr, histogram=TRUE, pch=19)
+res = cor(df_corr, method="pearson", use="complete.obs")
+corrplot(res, method = "number", type = "upper", order = "FPC", 
+         tl.col = "black", tl.srt = 45)
+```
+
+## Qualitative results of two reproductions (each generation 1)
+
+```{r qualitative, fig.height=8, fig.width=12, echo=FALSE}
+df_clean = df %>%
+  mutate(response=ifelse(box_checked==FALSE,slider_val,NA)) %>% 
+  select(id,generation,chain,trial_type,response,story_title) %>%
+  # select(id,trial_type,response) %>%
+  group_by(id) %>% 
+  spread(trial_type,response) %>% 
+  ungroup() %>% 
+  mutate(pay_attention=ifelse(((control1_false>50) + (control2_false>50) + (control3_true<50) + (control4_true>50)) > 2,FALSE,TRUE)) %>% 
+  filter(pay_attention==TRUE) %>%  
+  gather(question,value,-id,-pay_attention,-generation,-chain,-story_title) %>% 
+  select(-pay_attention,-chain)
+
+df_plots_slider = df_clean %>% 
+  filter(!is.na(value)) %>% 
+  filter(generation==1)
+  # filter(!str_detect(question,"control"))
+
+ggplot(df_plots_slider,aes(x=reorder(question,value),y=value,group=story_title,fill=story_title,color=story_title)) +
+# ggplot(df_plots_slider,aes(x=question,y=value,group=story_title,fill=story_title,color=story_title)) +
+  geom_point(alpha = 0.2,
+             # position = position_jitter(width = 0.1, height = 0),
+             position = position_dodge(width=.4),
+             size = 2) + 
+  # error bars 
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               # color = "black",
+               size = 1,
+               position = position_dodge(width=.4)) + 
+  # means
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               shape = 21,
+               # fill = "red",
+               # color = "black",
+               size = 4,
+               position = position_dodge(width=.4)) +
+  # facet_grid(rows = vars(story_title)) +
+  theme(axis.text.x = element_text(angle = 45,hjust=1))
+
+# df_plots_box = df_clean %>% 
+#   filter(is.na(value)) %>% 
+#   filter(generation==1) %>% 
+#   select(box_checked,trial_type) %>% 
+#   group_by(trial_type,box_checked) %>% 
+#   summarize(total_count = n()) %>%
+#   spread(key=box_checked,value=total_count)
+#   # filter(!str_detect(question,"control"))  
+# 
+# p_checkbox = ggplot(df_plots_box,aes(x=question,y=true)) +
+#   geom_bar(stat = "identity",
+#            fill = "orange") +
+#   facet_grid(rows = vars(story_title)) +
+#   theme(axis.text.x = element_text(angle = 45))
+
+# grid.arrange(p_slider,p_checkbox)
+    
+```
+
+
+
+
+
+
+

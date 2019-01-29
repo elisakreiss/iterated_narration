@@ -68,6 +68,69 @@ ggplot(data = df_clean, mapping = aes(x = generation, y = NumOfWords)) +
 
 
 ```{r}
+df_cond = df_clean %>% 
+  mutate(condition=ifelse(str_detect(story_title,"free"),"weak evidence","strong evidence"))
+
+ggplot(data = df_cond, 
+       aes(x = generation, 
+           y = NumOfWords,
+           group = condition,
+           color = condition,
+           fill = condition)) +
+  # individual data points (jittered horizontally)
+  geom_point(alpha = 0.2,
+             # position = position_jitter(width = 0.1, height = 0),
+             position = position_dodge(width = 0.9),
+             size = 2) + 
+  # error bars 
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               color = "black",
+               position = position_dodge(width = 0.9),
+               size = 1) + 
+  # means
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               shape = 21,
+               position = position_dodge(width = 0.9),
+               # fill = "red",
+               # color = "black",
+               size = 4)
+```
+
+```{r}
+df_cond = df_clean %>% 
+  mutate(condition=ifelse(str_detect(story_title,"free"),"weak evidence","strong evidence")) %>% 
+  mutate(avgWordLength = NumOfChars/NumOfWords)
+
+ggplot(data = df_cond, 
+       aes(x = generation, 
+           y = avgWordLength,
+           group = condition,
+           color = condition,
+           fill = condition)) +
+  # individual data points (jittered horizontally)
+  geom_point(alpha = 0.2,
+             # position = position_jitter(width = 0.1, height = 0),
+             position = position_dodge(width = 0.9),
+             size = 2) + 
+  # error bars 
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               color = "black",
+               position = position_dodge(width = 0.9),
+               size = 1) + 
+  # means
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               shape = 21,
+               position = position_dodge(width = 0.9),
+               # fill = "red",
+               # color = "black",
+               size = 4)
+```
+
+```{r}
 freq_count = df_clean %>% 
   select(reproduction) %>% 
   add_column(num=seq.int(nrow(df_clean))) %>%

@@ -140,6 +140,7 @@ freq_count = df_clean %>%
 write.table(freq_count, file = here("analyses","02_main","01_reproduction-inLab","word_freq_raw.csv"), sep=";", row.names = FALSE, qmethod = "double")
 ```
 
+
 ```{r}
 freqs = read_csv(here("analyses","02_main","01_reproduction-inLab","freqs_raw.csv"))
 

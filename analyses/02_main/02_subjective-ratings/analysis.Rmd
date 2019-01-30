@@ -182,6 +182,16 @@ df_cond = df_filtered %>%
   mutate_at(vars(story_reproduction),funs(str_replace_all(.,"</u>",""))) %>% 
   # add story_topic (condition independent) column
   mutate(story_topic = str_replace_all(story_title,"_free|_jail",""))
+
+df_overview = df_cond %>%
+  group_by(story_reproduction,generation) %>% 
+  summarize(participants=n()/8) %>% 
+  arrange(-participants) %>% 
+  filter(!generation==0)
+
+# df_sum = df_cond %>%
+#   group_by(story_reproduction,generation,story_topic,condition,trial_type) %>% 
+#   summarize(response=mean(slider_val))
 ```
 
 ## Comparing Ratings of the Seed Stories
@@ -730,16 +740,34 @@ ggplot(df_sim, aes(x=factor(generation),
 ```{r hedges, echo=FALSE}
 
 # hedges = c("allegedly","possibly","maybe","probably","if","around","over","nearly","almost","approximately","vaguely","suspect")
-hedges = c("allegedly","possibly","maybe","probably","if","around","over","nearly","almost","approximately","vaguely","up to","roughly","mainly","kind of","sort of","kinda","sorta","about","supposedly")
+hedges = c("allegedly","possibly","maybe","probably","if","around","over","nearly","almost","approximately","vaguely","up to","roughly","mainly","kind of","sort of","kinda","sorta","about","supposedly","seem", "tend", "look like", "looks like", "appear to be", "think", "believe", "doubt", "be sure", "indicate", "suggest", "assume", "might", "perhaps", "possibility")
 
-df_hedges = df_cond %>%
+df_hedges_corpus = df_cond %>%
+  distinct(story_reproduction,generation,condition) %>% 
   rowwise() %>% 
   mutate_at(vars(story_reproduction),funs(str_to_lower(.))) %>% 
   mutate(hedges_nr=sum(str_count(story_reproduction,hedges))) %>% 
   mutate(NumOfWords=str_count(story_reproduction, boundary("word"))) %>% 
   mutate(hedges_prop=hedges_nr/NumOfWords)
 
-ggplot(df_hedges,aes(x=generation,
+ggplot(df_hedges_corpus,aes(x=generation,
+                     y=hedges_prop)) +
+  facet_wrap(vars(condition)) +
+  geom_point(alpha=0.2, position = position_jitter()) +
+  # geom_point(alpha=0.2) +
+  stat_summary(fun.y = "mean",
+               geom = "point",
+               color = "red",
+               size = 4)
+
+df_hedges_ratings = df_cond %>%
+  rowwise() %>% 
+  mutate_at(vars(story_reproduction),funs(str_to_lower(.))) %>% 
+  mutate(hedges_nr=sum(str_count(story_reproduction,hedges))) %>% 
+  mutate(NumOfWords=str_count(story_reproduction, boundary("word"))) %>% 
+  mutate(hedges_prop=hedges_nr/NumOfWords)
+
+ggplot(df_hedges_ratings,aes(x=generation,
                      y=hedges_prop)) +
   facet_wrap(vars(condition)) +
   geom_point(alpha=0.2, position = position_jitter()) +
@@ -756,11 +784,11 @@ ggplot(df_hedges,aes(x=generation,
 ## Link between hedges and guiltiness of the suspect
 
 ```{r hedges_guilt, echo=FALSE}
-df_hedges_guilt = df_hedges %>% 
+df_hedges_guilt = df_hedges_ratings %>% 
   filter(trial_type == "suspect_committedCrime")
   # filter(trial_type == "evidence")
 
-ggplot(df_hedges_guilt,aes(x=cut_width(hedges_prop, 0.015, center = 0),
+ggplot(df_hedges_guilt,aes(x=cut_width(hedges_prop, 0.04, center = 0),
                      y=slider_val)) +
   # geom_violin() +
   stat_summary_bin(fun.y = "mean",
@@ -776,8 +804,49 @@ ggplot(df_hedges_guilt,aes(x=cut_width(hedges_prop, 0.015, center = 0),
 
 There seems to be a small difference between conditions.
 
+## Condition distance in generations
+```{r condition_dist, echo=FALSE}
+df_cond_weak = df_cond %>% 
+  filter(condition == "weak evidence") %>% 
+  rename(weak_reproduction = story_reproduction) %>% 
+  distinct(weak_reproduction,generation,story_topic) %>% 
+  arrange(generation,story_topic) %>% 
+  mutate(ID=row_number())
+
+df_cond_strong = df_cond %>%
+  filter(condition == "strong evidence") %>% 
+  select(story_reproduction,generation,story_topic) %>% 
+  rename(strong_reproduction = story_reproduction) %>% 
+  distinct(strong_reproduction,generation,story_topic)
+
+df_cond_strong = df_cond_strong[sample(1:nrow(df_cond_strong)), ] %>% 
+  arrange(generation,story_topic) %>% 
+  mutate(ID=row_number()) %>% 
+  rename(strong_story_topic = story_topic) %>% 
+  rename(strong_generation = generation) 
+
+df_sim = df_cond_weak %>% 
+  left_join(df_cond_strong,by="ID") %>%
+  rowwise() %>% 
+  mutate(sim=stringdistmatrix(weak_reproduction,strong_reproduction,method = "jaccard")) 
+  
+ggplot(df_sim,aes(x=generation,y=sim)) +
+  geom_point(alpha=0.2) +
+  stat_summary(fun.y="mean",
+               geom="point",
+               color = "red",
+               size = 4) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "linerange",
+               color = "red")
+  # facet_wrap(vars(story_topic))
+
+```
+
 
 ```{r eval=FALSE, include=FALSE}
+library(lme4)
+
 df_model = df_cond %>% 
   spread(trial_type,slider_val) %>% 
   merge(seed_lookup, by = "story_title") %>%  
@@ -785,10 +854,22 @@ df_model = df_cond %>%
   mutate(sim=stringdistmatrix(story_reproduction,seed,method = "jaccard")) %>% 
   mutate(NumOfWords=str_count(story_reproduction, boundary("word"))) %>% 
   mutate_at(vars(generation),funs(as.numeric(.))) %>%
-  mutate(cNumOfWords = NumOfWords - mean(NumOfWords))
+  mutate(cNumOfWords = NumOfWords - mean(NumOfWords)) %>% 
+  mutate(hedges_nr=sum(str_count(story_reproduction,hedges))) %>% 
+  mutate(hedges_prop=hedges_nr/NumOfWords) %>% 
+  ungroup() %>% 
+  mutate(chedges_prop=hedges_prop-mean(hedges_prop))
 
 m = lm(sim ~ NumOfWords, data=df_model)
 df_model$ResidualJSim = resid(m)
+
+df_mj = df_model %>%
+  distinct(story_reproduction,generation,condition,sim) %>%
+  ungroup() %>%
+  mutate(cgeneration = generation - mean(generation))
+  
+m.j = lmer(sim ~ cgeneration*condition + (1|story_reproduction), data=df_mj, REML=F)
+summary(m.j)
 
 library(lmerTest)
 ```
@@ -806,6 +887,9 @@ summary(m1)
 
 m1.simple = lmer(author_belief ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(author_belief ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -821,6 +905,9 @@ summary(m1)
 
 m1.simple = lmer(author_trust ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(author_trust ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -836,6 +923,9 @@ summary(m1)
 
 m1.simple = lmer(evidence ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(evidence ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -851,6 +941,9 @@ summary(m1)
 
 m1.simple = lmer(reader_emotion ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(reader_emotion ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -866,6 +959,9 @@ summary(m1)
 
 m1.simple = lmer(story_subjectivity ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(story_subjectivity ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -881,6 +977,9 @@ summary(m1)
 
 m1.simple = lmer(suspect_committedCrime ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(suspect_committedCrime ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -896,6 +995,9 @@ summary(m1)
 
 m1.simple = lmer(suspect_conviction ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(suspect_conviction ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 
 ```{r eval=FALSE, include=FALSE}
@@ -911,5 +1013,8 @@ summary(m1)
 
 m1.simple = lmer(suspect_convictionJustified ~ condition*sim - sim  + (1|story_reproduction), data=df_model)
 summary(m1.simple)
+
+mh = lmer(suspect_convictionJustified ~ chedges_prop * condition + (1|story_reproduction), data=df_model)
+summary(mh)
 ```
 

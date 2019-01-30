@@ -23,7 +23,7 @@
 *node_modules*
 *dump.rdb
 *.gv
-*raw_confidential.csv
+*raw_confidential*
 *submiterator*
 *workerIDcheck.R
 *data

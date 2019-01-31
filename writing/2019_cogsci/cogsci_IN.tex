@@ -120,11 +120,11 @@ To evaluate the stories' development, we conducted a second experiment which ask
 We constructed five stories (\textit{seeds}) that marked the beginning of each reproduction chain.  Stories were written in the style of short news articles and followed a similar structure. They reported a crime or moral violation that occurred, the authorities' determination of and search for the perpetrator(s), and  the possible punishment the suspects would face if found guilty. Furthermore, each of these five seed stories occurred in one of two conditions: a \emph{weak evidence} and a \emph{strong evidence} condition. Evidence strength was manipulated in the final sentence of the story (see example seed in Table \ref{tab:examplestory}).
 
 \begin{table*}
-\caption{Example seed story in Exp.~1.}
+\caption{Example seed story in Exp.~1. \ek{I don't know how to wrap this.}}
 \centering
 \begin{tabular}{l l}
 \toprule
-\multicolumn{2}{c}{"In late December 2017, a couple in Iowa was checking on their 50 beehives when they discovered a tragic scene. The hives had been overturned and hacked apart, and the equipment had been thrown out of the shed and smashed. This destruction caused the death of about half a million bees and approximately \$60,000 in property damage. Nearly three weeks later, police arrested two boys (12 and 13 years old) who, allegedly, were responsible for the damage. The charges against them include criminal mischief, burglary, and offenses to an agricultural animal facility. Since they are still minors, they will be charged in juvenile court where they face up to 10 years in prison and fines of up to \$10,000 if convicted."}\\
+\multicolumn{2}{c}{In late December 2017, a couple in Iowa was checking on their 50 beehives when they discovered a tragic scene. The hives had been overturned and hacked apart, and the equipment had been thrown out of the shed and smashed. This destruction caused the death of about half a million bees and approximately \$60,000 in property damage. Nearly three weeks later, police arrested two boys (12 and 13 years old) who, allegedly, were responsible for the damage. The charges against them include criminal mischief, burglary, and offenses to an agricultural animal facility. Since they are still minors, they will be charged in juvenile court where they face up to 10 years in prison and fines of up to \$10,000 if convicted.}\\
 \midrule
 Police officials explained that the investigation is still in progress, but the evidence so far overwhelmingly speaks to the guilt of the suspects. (\emph{strong evidence condition}) & Police officials explained that the investigation is still in progress, and the evidence so far doesn't warrant rushed conclusions about the guilt of the suspects. (\emph{weak evidence condition})  \\
 \bottomrule
@@ -152,11 +152,11 @@ While the linguistic changes across generations as a function of the original ev
 
 \begin{figure}[]
 	\includegraphics[width=0.48\textwidth]{graphs/corpus_length.pdf}
-	\caption{Mean story length in number of words by generation. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories. \jd{elisa, make sure that in all plots, only the first letter is capitalized (ie make "Words" lower case) and save the figures as pdf so they're not blurry}} 
+	\caption{Mean story length in number of words by generation. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories.} 
 	\label{fig:storylength}
 \end{figure}
 
-\textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \[D_J(X,Y) = 1 - \frac{|X \cap Y|}{|X \cup Y|}\] where X is the reproduction and Y the respective original seed story. In this case, we took words as the basic unit over which distance was computed. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = 0.05$, $SE = 0.00$, $t = 14.17$, $p < 0.0001$). This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of the representative examples (\ref{gen1}) and (\ref{gen5}) above. \jd{ideally, the plot would include dots for the best possible  baseline in addition to the actual means.}
+\textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \[D_J(X,Y) = 1 - \frac{|X \cap Y|}{|X \cup Y|}\] where X is the reproduction and Y the respective original seed story. In this case, we took words as the basic unit over which distance was computed. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = 0.05$, $SE = 0.00$, $t = 14.17$, $p < 0.0001$). This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of the representative examples (\ref{gen1}) and (\ref{gen5}) above.
 
 \begin{figure}[]
 	\includegraphics[width=0.48\textwidth]{graphs/jaccdistance.pdf}
@@ -210,7 +210,7 @@ Judgments were analyzed using linear mixed effects models. For each question, sl
 			reader emotion        & 0.85   & 2.99 & $<$0.78            & -1.49 & 0.65 & $<$0.05*     & -1.11  & 0.92 & $<$0.24  & * & *** & \\
 					\bottomrule
 		\end{tabular}
-		\caption{Model output for each fixed effect (condition, generation, and their interaction) for each rated question (rows). \jd{simple effects results should not be reported in this table -- this is just here for us, right?}}
+		\caption{Model output for each fixed effect (condition, generation, and their interaction) for each rated question (rows). \jd{simple effects results should not be reported in this table -- this is just here for us, right?}\ek{yes}}
 		%\caption{lmer(suspectconvictionJustified ~ generation * condition + (1|storyreproduction), data=dfmodel); high correlation of fixed effects}
 		\label{tab:exp2results}
 	\end{table*}

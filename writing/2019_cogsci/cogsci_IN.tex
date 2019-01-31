@@ -38,12 +38,18 @@
 \usepackage{booktabs}
 \usepackage{chngpage}
 
+%\usepackage{gb4e}
+\usepackage{lingmacros}
+
 %\usepackage[none]{hyphenat} % Sometimes it can be useful to turn off
 %hyphenation for purposes such as spell checking of the resulting
 %PDF.  Uncomment this block to turn off hyphenation.
 
 \definecolor{Orange}{RGB}{255,140,0}
 \newcommand{\ek}[1]{\textcolor{Orange}{[ek: #1]}} 
+
+\definecolor{Green}{RGB}{0,255,0}
+\newcommand{\jd}[1]{\textcolor{Green}{[jd: #1]}}
 
 \setlength\titlebox{6cm}
 % You can expand the titlebox if you need extra space
@@ -90,15 +96,15 @@ iterated narration; transmission chains; crime stories; suspect; guilt
 
 \ek{General notes: make up your mind about generations vs. reproduction; original stories vs. seeds; stories vs. storytype vs. condition,...}\\
 \section{Introduction}
-One of the central goals in language use is the exchange of information \ek{cite!}. We obtain new information by reading the newspaper, or listening to the radio or a friend. We can use this newly acquired knowledge and communicate it to other people in our environment. In its simplified linear form, we know this transmission phenomenon as the game of Telephone. The first person whispers a sentence to their neighbor, who in turn has to pass it on to the next person, and so on. After several iterations, the last person in the chain announces the sentence which they ended up with. To everyone's amusement, we often find that this final sentence differs remarkably from the initial one. This simple game nicely exemplifies the information loss and distortion that is associated with repeated exposure and reproduction of information.\\
+One of the central goals in language use is the exchange of information. We obtain new information by reading the newspaper, or listening to the radio or a friend. We can use this newly acquired knowledge and communicate it to other people in our environment. In its simplified linear form, we know this transmission phenomenon as the game of Telephone. The first person whispers a sentence to their neighbor, who in turn has to pass it on to the next person, and so on. After several iterations, the last person in the chain announces the sentence which they ended up with. To everyone's amusement, we often find that this final sentence differs remarkably from the initial one. This simple game nicely exemplifies the information loss and distortion that is associated with repeated exposure and reproduction of information.\\
 \cite{Bartlett:1932} first introduces this methodology of transmission chains, i.e., chains of reproductions, as a scientific method. In his book "Remembering" \cite{Bartlett:1932}, he presents a series of transmission chain studies, using stories such as Native American tales or sport reports for reproduction. Bartlett observes a significant information loss of the stories over generations of reproductions and that the content of the stories changes \ek{en par} with the reproducer's prior knowledge. Bartlett used these observations as a foundation for his theory that memory retrieval involves a process of reconstruction. \\
 In recent years, the transmission chain method received a revival in the scientific community. \ek{Mesoudi and Whiten} extend Bartlett's generalization hypothesis by using script theory to show that with each iteration, the described events become increasingly abstract. Further research showed that \ek{gender stereotypes: Bangerter 2000, Kashima 2000; cognitive biases: Kalish 2007, Griffiths 2007/2008; Stubbersfield 2015/2017; Hills/Jagiello 2018}\\
 In summary, we know that we use language and communication to exchange information, but we also know that the process of passing on information is flawed in very particular ways. Given their political relevance, we look at how crime stories change in a transmission chain and how this is influenced by seemingly weak and strong of evidence.\\
 
 \begin{figure}[]
 	\includegraphics[width=0.48\textwidth]{graphs/corpus_overview.png}
-	\caption{This is a figure.} 
-	\label{overview-figure}
+	\caption{Overview of corpus of stories collected in Exp.~1.} 
+	\label{fig:design}
 \end{figure}
 
 To investigate how crime stories evolve over iterations, we conducted two experiments. First we collected a corpus of reproductions for five crime stories, each addressing a different type of crime (e.g., animal smuggling, arson or sexual assault). Each story existed in a weak and a strong evidence condition. This manipulation has successfully been used by \cite{Van-Prooijen:2006} to uncover in- and out-group effects in guilt judgments. Similar to his study, the different conditions were achieved by changing the last sentence in the story which then either suggested strong or weak evidence. \\
@@ -106,28 +112,59 @@ We want to investigate how these stories develop in a transmission chain paradig
 To evaluate the stories' development, we conducted a second experiment which asked participants to answer questions about the suspect's guilt, the likelihood of conviction and other suspect, author and reader related questions. 
 
 
-\section{Corpus Collection}
+\section{Experiment 1: corpus collection}
 \ek{transmission chain method}
 
-\subsection{Material}
-We constructed five crime stories which mark the beginning of each reproduction chain. These will be referred to as \textit{seeds}. All of these stories share a \ek{news-article-tone} and follow a similar structure: They report a crime that has happened, the police's search for the people who committed the crime, the arrest of one or multiple suspects and the possible punishment they face if found guilty. Furthermore, each of these five seed stories can occur in either of two conditions: a weak evidence and a strong evidence condition. This manipulation was achieved by varying the final sentence of the story.
-
 \subsection{Methods}
-74 Stanford students participated in this online study as part of their course requirements \ek{include \_babe reference?}. Each participant read and reproduced each of the five stories. The assignment of the condition was random. After reading the instructions, participants read the story and whenever ready could proceed to the free reproduction. The story was not visible in the reproduction phase. The trial order was randomized.\\
+74 Stanford students participated in this online study for course credit. 
+We constructed five stories (\textit{seeds}) that marked the beginning of each reproduction chain.  Stories were written in the style of short news articles and followed a similar structure. They reported a crime or moral violation that occurred, the authorities' determination of  and search for the perpetrator(s), and  the possible punishment the suspects would face if found guilty. Furthermore, each of these five seed stories  occurred in one of two conditions: a \emph{weak evidence} and a \emph{strong evidence} condition. Evidence strength was manipulated in the final sentence of the story (see example seed in Table \ref{tab:examplestory}).
+
+\begin{table*}
+\caption{Example seed story in Exp.~1.}
+\centering
+\begin{tabular}{l l}
+\toprule
+\multicolumn{2}{c}{\jd{ELISA, INSERT EXAMPLE STORY HERE}}\\
+\midrule
+\jd{ELISA, INSERT STRONG EVIDENCE SENTENCE HERE} (\emph{strong evidence condition}) & \jd{ELISA, INSERT WEAK EVIDENCE SENTENCE HERE} (\emph{weak evidence condition})  \\
+\bottomrule
+\end{tabular}
+\label{tab:examplestory}
+\end{table*}
+
+Each participant read and reproduced five stories (either only seed stories, a mix of seeds and reproductions from previous participants, or only reproductions). The assignment of the condition was random \jd{did a participant read either all weak or all strong evidence stories, or a mix?}. On each trial, participants first read a story. They were told to click the `Continue' button when they were confident they had internalized the story. Once they clicked the button, the story disappeared and they were asked to reproduce it freely in a text field.  Order of stories was randomized.
 
 \subsection{Results}
 
+Participants produced 370 stories. For each seed, we defined a complete chain as one that has 5 reproductions/generations. For subsequent analysis, we randomly selected 50 complete chains, evenly distributed across stories and conditions. This yielded a corpus of 250 reproductions (5 seeds in 2 conditions each with 5 complete chains each, see Figure \ref{fig:design}).
+
+While the linguistic changes across generations as a function of the original evidence condition merit their own detailed analysis, we focus here on reporting only a few general features of the collected corpus, which we will subsequently use as predictors in the analyses of Exp.~2 below.
+
+\textbf{Story length.} As shown in Figure \ref{fig:storylength}, the length of the stories decreased across generations ($\beta = XX$, $SE = XX$, $t = XX$, $p < XX$) \jd{elisa, fill in values}, replicating a well-known phenomenon in reproduction studies  \cite{Bartlett:1932}. While the original generation 0 seeds consisted on average of \jd{XX} words, that number dropped to \jd{XX} by generation 5. Examples of reproductions of the seed in Table \ref{tab:examplestory} from generation 1 and 5 are shown in (\ref{gen1}) and (\ref{gen5}) below.
+
+%\begin{exe}
+%	\ex\label{gen1} \jd{elisa, add story from gen 1 of seed in table 1}
+%	\ex\label{gen5} \jd{elisa, add story from gen 5 of seed in table 1}
+%\end{exe}
+
+\enumsentence{\jd{elisa, add story from gen 1 of seed in table 1}.\label{gen1}}
+\enumsentence{\jd{elisa, add story from gen 5 of seed in table 1}.\label{gen5}}
+
 \begin{figure}[]
 	\includegraphics[width=0.48\textwidth]{graphs/corpus_length.png}
-	\caption{This is a figure.} 
-	\label{corpuslength}
+	\caption{Mean story length in number of words by generation. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories. \jd{elisa, make sure that in all plots, only the first letter is capitalized (ie make "Words" lower case) and save the figures as pdf so they're not blurry}} 
+	\label{fig:storylength}
 \end{figure}
 
-As suggested by \cite{Bartlett:1932}, the length of reproductions decreases on average with the highest decrease in the first three generations. The difference between the fourth and fifth generation becomes almost negligible which could be a sign for an almost perfect recall at this length (\ek{cite}).\\
-\ek{...}\\
-A complete chain is a chain that has 5 reproductions/generations. For our subsequent analyses, we randomly chose 50 complete chains, evenly distributed over stories and conditions. Overall, this gives us a corpus that comprises 250 reproductions and 10 seed stories (see \ek{figure 1}).
+\textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \jd{elisa, insert formula}, where XX is XX and XX is XX \jd{elisa, explain terms and say that we took words as the basic unit over which distance was computed}. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = XX$, $SE = XX$, $t = XX$, $p < XX$) \jd{elisa, fill in values}. This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of  the representative examples (\ref{gen1}) and (\ref{gen5})  above. \jd{ideally, the plot would include dots for the best possible  baseline in addition to the actual means.}
 
-\section{Subjective Ratings}
+\begin{figure}[]
+	%\includegraphics[width=0.48\textwidth]{graphs/jaccdistance}
+	\caption{Mean Jaccard distance between seed and reproductions by generation in strong (left) and weak (right) evidence condition. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories. \jd{elisa, make this plot analogous to fig 2 and uncomment the above when plot exists}} 
+	\label{fig:jaccdistance}
+\end{figure}
+
+\section{Experiment 2: story ratings}
 To evaluate the reproduction corpus, we obtained ratings for a variety of psychological variables to track their changes throughout the generations. We asked participants to answer questions about the suspect, the author, the reader and the evidence.
 
 \subsection{Material}
@@ -143,8 +180,8 @@ We excluded 12 participants because they completed the study multiple times and 
 
 \begin{figure}[H]
 	\includegraphics[width=0.48\textwidth]{graphs/subj_results_byquestion.png}
-	\caption{This is a figure.} 
-	\label{sample-figure}
+	\caption{Mean ratings  in strong (orange) and weak (green) evidence condition for each dimension (facets). \jd{elisa, put these all in one row, make the x-axis labels not slanted, and make it a two-column figure}} 
+	\label{fig:exp2results}
 \end{figure}
 
 

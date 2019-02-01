@@ -122,11 +122,11 @@ To evaluate the stories' development, we conducted a second experiment which ask
 
 
 \section{Experiment 1: corpus collection}
-\ek{transmission chain method}
+\ek{...}
 
 \subsection{Methods}
 74 Stanford students participated in this online study for course credit. 
-We constructed five stories (\textit{seeds}) that marked the beginning of each reproduction chain.  Stories were written in the style of short news articles and followed a similar structure. They reported a crime or moral violation that occurred, the authorities' determination of and search for the perpetrator(s), and  the possible punishment the suspects would face if found guilty. Furthermore, each of these five seed stories occurred in one of two conditions: a \emph{weak evidence} and a \emph{strong evidence} condition. Evidence strength was manipulated in the final sentence of the story (see example seed in Table \ref{tab:examplestory}).
+We constructed five stories (\textit{seeds}) that marked the beginning of each reproduction chain.  Stories were written in the style of short news articles and followed a similar structure. They reported a crime or moral violation that occurred, the authorities' determination of and search for the perpetrator(s), and the possible punishment the suspects would face if found guilty. Furthermore, each of these five seed stories occurred in one of two conditions: a \emph{weak evidence} and a \emph{strong evidence} condition. Evidence strength was manipulated in the final sentence of the story (see example seed in Table \ref{tab:examplestory}).
 
 \begin{table*}
 \caption{Example seed story in Exp.~1.}
@@ -145,7 +145,7 @@ Each participant read and reproduced five stories (either only seed stories, a m
 
 \subsection{Results}
 
-Participants produced 370 stories. For each seed, we defined a complete chain as one that has 5 reproductions/generations. For subsequent analysis, we randomly selected 50 complete chains, evenly distributed across stories and conditions. This yielded a corpus of 250 reproductions (5 seeds in 2 conditions each with 5 complete chains each, see Figure \ref{fig:design}).
+Participants produced 370 stories. For each seed, we defined a complete chain as one that has 5 reproductions/generations. For subsequent analysis, we randomly selected 50 complete chains, evenly distributed across stories and conditions. This yielded a corpus of 250 reproductions (5 seeds in 2 conditions with 5 complete chains each, see Figure \ref{fig:design}).
 
 While the linguistic changes across generations as a function of the original evidence condition merit their own detailed analysis, we focus here on reporting only a few general features of the collected corpus, which we will subsequently use as predictors in the analyses of Exp.~2 below.
 
@@ -165,13 +165,23 @@ While the linguistic changes across generations as a function of the original ev
 	\label{fig:storylength}
 \end{figure}
 
-\textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \[D_J(X,Y) = 1 - \frac{|X \cap Y|}{|X \cup Y|}\] where X is the reproduction and Y the respective original seed story. In this case, we took words as the basic unit over which distance was computed. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = 0.05$, $SE = 0.00$, $t = 14.17$, $p < 0.0001$). This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of the representative examples (\ref{gen1}) and (\ref{gen5}) above.
+\textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \[D_J(X,Y) = 1 - \frac{|X \cap Y|}{|X \cup Y|}\] where X is the reproduction and Y the respective original seed story. In this case, we took words as the basic unit over which distance was computed. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = 0.05$, $SE = 0.00$, $t = 14.17$, $p < 0.0001$). This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length \ek{is this true?}, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of the representative examples (\ref{gen1}) and (\ref{gen5}) above.
 
 \begin{figure}[]
 	\includegraphics[width=0.48\textwidth]{graphs/jaccdistance.pdf}
 	\caption{Mean Jaccard distance between seed and reproductions by generation in strong (left) and weak (right) evidence condition. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories, red dots indicate the lowest possible distance given the mean length of the stories.} 
 	\label{fig:jaccdistance}
 \end{figure}
+
+\textbf{Proportion of Hedges.} As a proxy for vagueness, we extract the number of hedges per story relative to its length. The seed stories were designed to contain various hedges, such as "nearly", "about", "up to" or "allegedly". \ek{Figure ..} shows the proportion of hedges that remains throughout the generations. We can see that this proportion decreases over generations ($\beta = -0.01$, $SE = 0.00$, $t = -4.16$, $p < 0.0001$). The reproductions therefore appear to get less mitigated over iterations.\\
+
+\begin{figure}[]
+	\includegraphics[width=0.48\textwidth]{graphs/hedges_points.pdf}
+	\caption{Mean proportion of hedges (by number of words) in strong (left) and weak (right) evidence condition. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories.} 
+	\label{fig:hedges}
+\end{figure}
+
+In summary, our investigation of the corpus so far revealed that the length of the stories, the similarity to the seed story and the proportion of hedges decreases over generations.
 
 \section{Experiment 2: story ratings}
 In order to assess the extent to which, as a function of the originally provided evidence, the generation of reproduction affects readers' perception of various aspects of the stories, we crowd-sourced judgments about the suspect's perceived guilt, the evidence for the crime, the author, and the reader themselves.
@@ -180,7 +190,7 @@ In order to assess the extent to which, as a function of the originally provided
 5392 participants were recruited over Amazon Mechanical Turk. Each participant read one story from the 250 story corpus reported in the previous section, and answered twelve questions about the story (including four attention checks). They indicated their response by moving a slider on a continuous scale. Each question was shown in isolation in a randomized order. Participants spent on average two to three minutes on this experiment and were paid \$0.60 (\$12-\$18 per hour). The story was visible throughout the experiment.
 
 
-The list of questions asked is provided in (\ref{q1}) to (\ref{q8}). Questions (\ref{q1}) - (\ref{q5}) assessed the extent to which the reader believes the suspect(s) is/are guilty of the alleged crime. Questions (\ref{q6}) - (\ref{q8}) assessed the  reader's trust in the author, the extent to which they considered the story to be objectively written, and the extent to which they felt emotionally connected to the story. Overall, participants were asked eight questions of interest and four attention check questions designed to filter out participants who were just clicking through the experiment. \jd{describe the attention checks?}
+The list of questions asked is provided in (\ref{q1}) to (\ref{q8}). Questions (\ref{q1}) - (\ref{q5}) assessed the extent to which the reader believes the suspect(s) is/are guilty of the alleged crime. Questions (\ref{q6}) - (\ref{q8}) assessed the  reader's trust in the author, the extent to which they considered the story to be objectively written, and the extent to which they felt emotionally connected to the story. Overall, participants were asked eight questions of interest and four attention check questions designed to filter out participants who were just clicking through the experiment. The attention checks were counter balanced and asked about the likelihood that the passage is a Greek fairy tale, a Bible quote, contains more than five words, and that the story involves \textit{X}, where X was replaced by the word which was most likely to occur in the story (e.g., \textit{bees} for the story in Table \ref{tab:examplestory})
 
 \enumsentence{How strong is the evidence for the suspect's / suspects' guilt? \label{q1}}
 \enumsentence{How likely is it that the suspect is / the suspects in the crime are guilty? \label{q2}}
@@ -193,19 +203,26 @@ The list of questions asked is provided in (\ref{q1}) to (\ref{q8}). Questions (
 
 
 \subsection{Results}
-We excluded 12 participants because they completed the study multiple times and another 535 because they failed at least two of the attention check questions. This leaves us with 4573 participants (84.8\% of the original set). After exclusions, each reproduction received on average 17 ratings, ranging from 9 to 22 and two outliers with 27 and 38 ratings\footnote{The outliers are due to a mistake in the recruitment process}. The original seed stories received between 25 and 31 ratings.
+We excluded 12 participants because they completed the study multiple times and another 535 because they failed at least two of the attention check questions. This leaves us with 4573 participants (84.8\% of the original set). After exclusions, each reproduction received on average 17 ratings, ranging from 9 to 22 and two outliers with 27 and 38 ratings\footnote{The outliers are due to a mistake in the recruitment process.}. The original seed stories received between 25 and 31 ratings.
 
-Mean ratings are shown in Figure \ref{fig:exp2results}. Qualitatively, there is a strong effect of condition in the guilt related measures, i.e., strength of evidence, suspect guilt, suspect conviction, suspect conviction justified and author's belief in guilt. In the responses to these measures, the ratings for the strong evidence condition are declining over generations, but consistently higher than for the weak evidence condition. In other words, the different guilt measures pertain higher guilt judgments than in the weak condition over all generations. However, the judgments of the weak conditions in the guilt measures pattern differently. In contrast to a decrement in judgments over generations, the judgments in the weak condition stay constant or increase. This narrows the distance between the judgments in the strong and weak conditions. \ek{In sum,} the stories for the two different conditions become more similar over generations with respect to the guilt measures.\\
-In the strong condition, all the guilt measures appear to pattern together. However, in the weak condition the pattern seems to vary. Most strikingly a conviction of the suspect does not seem to be influenced by the generation of the reproduction, whereas the reader's belief that the suspect is guilty increases.\\
-In the questions about the reader's trust in the author, the subjectivity of the story and the reader's emotional engagement, the difference between the conditions is far smaller if existent at all. Trust in the author and the reader's emotional engagement decline over generations of reproductions, essentially independent of the condition. Interestingly, the measure on how subjectively the story is written does not change over generations and remains on the side of the scale that was classified as "objective".
+Mean slider ratings are shown in Figure \ref{fig:exp2results}. 
+Qualitatively, there is a strong effect of condition in the guilt related measures, i.e., \textit{strength of evidence}, \textit{suspect guilt}, \textit{suspect conviction}, \textit{suspect conviction justified} and \textit{author's belief in guilt}. In the responses to these measures, the ratings for the strong evidence condition are declining over generations, but consistently higher than for the weak evidence condition. In other words, the different guilt measures retain higher guilt judgments than the weak condition over all generations. However, the judgments of the weak conditions pattern differently. In contrast to a decline in the ratings over generations, the judgments in the weak condition stay constant or increase. This narrows the distance between the judgments in the strong and weak conditions. \ek{In sum,} the stories for the two different conditions become more similar over generations with respect to the guilt measures.\\
+The difference between the conditions is far smaller (if existent at all) in the responses to the reader's \textit{trust in the author}, the \textit{subjectivity of the story} and the \textit{reader's emotional engagement}. \textit{Trust in the author} and the \textit{reader's emotional engagement} decline over generations of reproductions, independent of the condition. Interestingly, the measure on how subjectively the story is written does not change over generations and remains on the "objective" side of the scale.
+
+\ek{maybe make a note that there is no sign of convergence to .5}
 
 \begin{figure*}[]
 	\includegraphics[width=\textwidth]{graphs/subj_results_byquestion.pdf}
-	\caption{Mean ratings  in strong (orange) and weak (green) evidence condition for each dimension (facets).} 
+	\caption{Mean ratings in strong (orange) and weak (green) evidence condition for each dimension (facets).} 
 	\label{fig:exp2results}
 \end{figure*}
 
-Judgments were analyzed using linear mixed effects models. For each question, slider rating was predicted from fixed effects of generation (reference level: 0), condition (reference level: strong), and their interaction. The model also included random by-story intercepts. An overview of the results is shown in Table \ref{tab:exp2results}.
+The judgments were analyzed using linear mixed effects models. For each question, slider rating was predicted from fixed effects of generation (reference level: 0), condition (reference level: strong), and their interaction. The model also included random by-story intercepts. An overview of the results is shown in Table \ref{tab:exp2results}.\\
+In the qualitative analysis, we have observed a strong condition effect in the guilt measures. This is reflected in the model results. In the non-guilt measures, story subjectivity shows a significant effect on condition. The trust in the author and the reader's emotional engagement appear to be independent of the condition and therefore cannot explain the difference that we see in the guilt related measures. Even though the subjectivity shows an effect of condition, it is too small \ek{rephrase this...} to explain these effects in the guilt measures either. \ek{We also know that the length and Jaccard distance (and maybe hedges?) doesn't differ in the two conditions, so...} This suggests that the strong effects of condition in the guilt measures \ek{are about some more subtle changes in the actual language and content of the stories}.\\
+With respect to the guilt measures, the quantitative analysis suggests clear effects of generation in the strength of the evidence, the likelihood of conviction, and whether the author believes in the suspect's guilt. Those three guilt measures show a very similar pattern in their main effect structure. A simple effects analysis further supports this grouping intuition, since none of them show an effect in the interaction between \textit{weak} evidence and generation, but all of them show an effect in the interaction between \textit{strong} evidence and generation. This group stands in contrast to the other two guilt measures, asking about the suspect's guilt and whether a conviction would be justified. These two do not show a main effect in generation and only a marginal effect in the simple effects analysis for the interaction between the strong evidence condition and generation.\\
+We want to emphasize here that even though we intuitively expect the strength of evidence to inform the suspect's guilt judgment, we do not see the same effect structure in these two cases. Qualitatively, the development in the strong evidence condition suggests that the \textit{strength of evidence} deteriorates more than the \textit{suspect} guilt judgments. In the weak evidence condition, this pattern appears similar, in that the judgments of guilt seem to increase more than those of evidence.\\
+\textit{Trust in author} and the \textit{reader's emotional engagement} did not show a main effect of condition, but of generation. The further it gets from the original seed, the less trust is put in the author and the less emotional engagement the readers feel.
+
 
 	\begin{table*}
 		\centering
@@ -229,10 +246,20 @@ Judgments were analyzed using linear mixed effects models. For each question, sl
 		\label{tab:exp2results}
 	\end{table*}
 
+Overall, we find a strong effect of condition on the guilt measures that is not reflected in this extend by the trust in the author, subjectivity of the story or the reader's emotional engagement.
+
 \section{Conclusion}
+
+\ek{insert intro sentence}
+
+First we constructed a corpus which consists of 10 original seed stories and 250 reproductions. Half of the seed stories suggested strong and the other half weak evidence that speaks for the suspect's guilt. 
+Our corpus collection replicates previously found effects of a decrement in length over generations of reproductions (\cite{Bartlett:1932}). Furthermore, the stories become less similar to the original seed story and the proportional number of hedges decreases.\\
+In a second study, we obtained subjective ratings for each story regarding the question of guilt, conviction, the author of the story, the subjectivity of the story and the reader's emotional engagement. Our results suggest... \ek{condition effect}
+We also find effects of generation. It is plausible that trust in the author and the reader's emotional engagement decrease because the reproductions become shorter with each iteration. It is less likely that this explanation holds for the generation effects in \textit{strength of evidence}, likelihood of \textit{suspect conviction} and the \textit{author's belief in the suspect's guilt}. In the ratings for these questions we see a stronger difference between conditions that the changes in length, similarity and the proportion of hedges could not account for. \ek{Therefore, it must be something about the content of the stories itself that changes.}
 
 \section{Discussion}
 \ek{discuss differences between stories with in- and out-group effects for smuggler and professor}
+\ek{next steps?}
 
 
 \bibliographystyle{apacite}
@@ -271,53 +298,52 @@ Judgments were analyzed using linear mixed effects models. For each question, sl
 %	\end{table}
 %\end{adjustwidth}
 
-\begin{adjustwidth}{-1in}{-1in}
-	\begin{table}
-		\centering
-		\begin{tabular}{l r r l r r l r r l}
-			\toprule
-			& \multicolumn{3}{c}{condition} & \multicolumn{3}{c}{distance} & \multicolumn{3}{c}{condition*distance} \\
-			& \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p}\\
-			\midrule
-			evidence                              & -24.90 & 5.24 & $<$0.0001*** & -36.49 & 10.92 & $<$0.001*** & 27.75  & 15.41 & $<$0.08  \\
-			suspect committedCrime    & -20.12  & 4.32 & $<$0.0001*** & -14.94 & 9.00 & $<$0.10          & 26.15  & 12.71 & $<$0.05*  \\
-			suspect conviction              & -31.87 & 5.26  & $<$0.0001*** & -36.83 & 10.96 & $<$0.001***  & 39.48  & 15.47 & $<$0.05*  \\
-			suspect convictionJustified & -21.181 & 5.54 & $<$0.001***  & -21.42 & 11.55 & $<$0.07        & 19.35  & 16.30 & $<$0.24    \\
-			author belief                        & -29.90 & 4.74 & $<$0.0001***  & -9.01 & 9.87 & $<$0.37      & 39.02  & 13.94 & $<$0.01** \\
-			author trust                          & -1.19   & 2.83 & $<$0.68             & -24.73 & 5.91 & $<$0.001*** & -4.93 & 8.36 & $<$0.56   \\
-			story subjectivity                 & -6.12   & 2.77 & $<$0.05*          & -5.05 & 5.79 & $<$0.39         & 12.77   & 8.22 & $<$0.13  \\
-			reader emotion                    & 0.54   & 3.70 & $<$0.89             & -25.34 & 7.72 & $<$0.01**     & -10.44  & 10.93 & $<$0.35  
-			%			\bottomrule
-		\end{tabular}
-		\caption{lmer(suspectconvictionJustified ~ sim * condition + (1|storyreproduction), data=dfmodel); high correlation of fixed effects}
-		\label{tab:distancemodel}
-	\end{table}
-\end{adjustwidth}
+%\begin{adjustwidth}{-1in}{-1in}
+%	\begin{table}
+%		\centering
+%		\begin{tabular}{l r r l r r l r r l}
+%			\toprule
+%			& \multicolumn{3}{c}{condition} & \multicolumn{3}{c}{distance} & \multicolumn{3}{c}{condition*distance} \\
+%			& \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p}\\
+%			\midrule
+%			evidence                              & -24.90 & 5.24 & $<$0.0001*** & -36.49 & 10.92 & $<$0.001*** & 27.75  & 15.41 & $<$0.08  \\
+%			suspect committedCrime    & -20.12  & 4.32 & $<$0.0001*** & -14.94 & 9.00 & $<$0.10          & 26.15  & 12.71 & $<$0.05*  \\
+%			suspect conviction              & -31.87 & 5.26  & $<$0.0001*** & -36.83 & 10.96 & $<$0.001***  & 39.48  & 15.47 & $<$0.05*  \\
+%			suspect convictionJustified & -21.181 & 5.54 & $<$0.001***  & -21.42 & 11.55 & $<$0.07        & 19.35  & 16.30 & $<$0.24    \\
+%			author belief                        & -29.90 & 4.74 & $<$0.0001***  & -9.01 & 9.87 & $<$0.37      & 39.02  & 13.94 & $<$0.01** \\
+%			author trust                          & -1.19   & 2.83 & $<$0.68             & -24.73 & 5.91 & $<$0.001*** & -4.93 & 8.36 & $<$0.56   \\
+%			story subjectivity                 & -6.12   & 2.77 & $<$0.05*          & -5.05 & 5.79 & $<$0.39         & 12.77   & 8.22 & $<$0.13  \\
+%			reader emotion                    & 0.54   & 3.70 & $<$0.89             & -25.34 & 7.72 & $<$0.01**     & -10.44  & 10.93 & $<$0.35  
+%			%			\bottomrule
+%		\end{tabular}
+%		\caption{lmer(suspectconvictionJustified ~ sim * condition + (1|storyreproduction), data=dfmodel); high correlation of fixed effects}
+%		\label{tab:distancemodel}
+%	\end{table}
+%\end{adjustwidth}
 
-\cleardoublepage
 
-\begin{adjustwidth}{-1in}{-1in}
-	\begin{table}
-		\centering
-		\begin{tabular}{l r r l r r l r r l}
-			\toprule
-			& \multicolumn{3}{c}{condition} & \multicolumn{3}{c}{hedgesprop} & \multicolumn{3}{c}{condition*hedgesprop} \\
-			& \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p}\\
-			\midrule
-			evidence                              & -15.74 & 1.95 & $<$0.0001*** & 101.20 & 56.55 & $<$0.08      & -119.12  & 82.37 & $<$0.15  \\
-			suspect committedCrime    & -11.93  & 1.59 & $<$0.0001*** & 43.01 & 45.98 & $<$0.36      & -118.58  & 66.97 & $<$0.08  \\
-			suspect conviction              & -19.10 & 1.96  & $<$0.0001*** & 102.66 & 56.65 & $<$0.08  & -132.10  & 82.50 & $<$0.12  \\
-			suspect convictionJustified & -14.94 & 2.04 & $<$0.0001***  & 30.91 & 59.10 & $<$0.7        & -70.91  & 86.08 & $<$0.42    \\
-			author belief                        & -17.91 & 1.75 & $<$0.0001***  & 54.69 & 50.54 & $<$0.29      & -188.17  & 73.61 & $<$0.05* \\
-			author trust                          & -2.16   & 1.13 & $<$0.06            & 46.60 & 32.70 & $<$0.16     & 27.80 & 47.74 & $<$0.57   \\
-			story subjectivity                 & -2.22   & 1.06 & $<$0.05*          & 6.10 & 30.61 & $<$0.85         & -45.08  & 44.85 & $<$0.32  \\
-			reader emotion                    & -2.25   & 1.46 & $<$0.13             & -7.18 & 42.26 & $<$0.87     & 49.49  & 61.67 & $<$0.43  
-			%			\bottomrule
-		\end{tabular}
-		\caption{lmer(suspectconvictionJustified ~ hedgesprop * condition + (1|storyreproduction), data=dfmodel); hedges is centered; hedges = c("allegedly", "possibly", "maybe", "probably", "if", "around", "over", "nearly", "almost", "approximately", "vaguely", "up to", "roughly", "mainly", "kind of", "sort of", "kinda", "sorta", "about", "supposedly", "seem", "tend", "look like", "looks like", "appear to be", "think", "believe", "doubt", "be sure", "indicate", "suggest", "assume", "might", "perhaps", "possibility")}
-		\label{tab:hedgemodel}
-	\end{table}
-\end{adjustwidth}
+%\begin{adjustwidth}{-1in}{-1in}
+%	\begin{table}
+%		\centering
+%		\begin{tabular}{l r r l r r l r r l}
+%			\toprule
+%			& \multicolumn{3}{c}{condition} & \multicolumn{3}{c}{hedgesprop} & \multicolumn{3}{c}{condition*hedgesprop} \\
+%			& \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{$\beta$} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{p}\\
+%			\midrule
+%			evidence                              & -15.74 & 1.95 & $<$0.0001*** & 101.20 & 56.55 & $<$0.08      & -119.12  & 82.37 & $<$0.15  \\
+%			suspect committedCrime    & -11.93  & 1.59 & $<$0.0001*** & 43.01 & 45.98 & $<$0.36      & -118.58  & 66.97 & $<$0.08  \\
+%			suspect conviction              & -19.10 & 1.96  & $<$0.0001*** & 102.66 & 56.65 & $<$0.08  & -132.10  & 82.50 & $<$0.12  \\
+%			suspect convictionJustified & -14.94 & 2.04 & $<$0.0001***  & 30.91 & 59.10 & $<$0.7        & -70.91  & 86.08 & $<$0.42    \\
+%			author belief                        & -17.91 & 1.75 & $<$0.0001***  & 54.69 & 50.54 & $<$0.29      & -188.17  & 73.61 & $<$0.05* \\
+%			author trust                          & -2.16   & 1.13 & $<$0.06            & 46.60 & 32.70 & $<$0.16     & 27.80 & 47.74 & $<$0.57   \\
+%			story subjectivity                 & -2.22   & 1.06 & $<$0.05*          & 6.10 & 30.61 & $<$0.85         & -45.08  & 44.85 & $<$0.32  \\
+%			reader emotion                    & -2.25   & 1.46 & $<$0.13             & -7.18 & 42.26 & $<$0.87     & 49.49  & 61.67 & $<$0.43  
+%			%			\bottomrule
+%		\end{tabular}
+%		\caption{lmer(suspectconvictionJustified ~ hedgesprop * condition + (1|storyreproduction), data=dfmodel); hedges is centered; hedges = c("allegedly", "possibly", "maybe", "probably", "if", "around", "over", "nearly", "almost", "approximately", "vaguely", "up to", "roughly", "mainly", "kind of", "sort of", "kinda", "sorta", "about", "supposedly", "seem", "tend", "look like", "looks like", "appear to be", "think", "believe", "doubt", "be sure", "indicate", "suggest", "assume", "might", "perhaps", "possibility")}
+%		\label{tab:hedgemodel}
+%	\end{table}
+%\end{adjustwidth}
 
 %
 %
@@ -349,27 +375,6 @@ Judgments were analyzed using linear mixed effects models. For each question, sl
 %Indent the first line of each paragraph by 1/8~inch (except for the
 %first paragraph of a new section). Do not add extra vertical space
 %between paragraphs.
-%
-%
-%\section{First Level Headings}
-%
-%First level headings should be in 12~point, initial caps, bold and
-%centered. Leave one line space above the heading and 1/4~line space
-%below the heading.
-%
-%
-%\subsection{Second Level Headings}
-%
-%Second level headings should be 11~point, initial caps, bold, and
-%flush left. Leave one line space above the heading and 1/4~line
-%space below the heading.
-%
-%
-%\subsubsection{Third Level Headings}
-%
-%Third level headings should be 10~point, initial caps, bold, and flush
-%left. Leave one line space above the heading, but no space after the
-%heading.
 %
 %
 %\section{Formalities, Footnotes, and Floats}

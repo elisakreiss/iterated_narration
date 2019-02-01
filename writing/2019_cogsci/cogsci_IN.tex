@@ -111,7 +111,7 @@ In recent years, the transmission chain method received a revival in the scienti
 In summary, we know that we use language and communication to exchange information, but we also know that the process of passing on information is flawed in very particular ways. Given their political relevance, we look at how crime stories change in a transmission chain and how this is influenced by seemingly weak and strong of evidence.
 
 \begin{figure}[]
-	\includegraphics[width=0.48\textwidth]{graphs/corpus_overview.png}
+	\includegraphics[width=0.48\textwidth]{pics/corpus_overview.png}
 	\caption{Overview of corpus of stories collected in Exp.~1.} 
 	\label{fig:design}
 \end{figure}
@@ -160,7 +160,7 @@ While the linguistic changes across generations as a function of the original ev
 \enumsentence{A 12 and 13 year old were arrested for destroying a beehive, and face up to 10 years of jail time.\label{gen5}}
 
 \begin{figure}[]
-	\includegraphics[width=0.48\textwidth]{graphs/corpus_length.pdf}
+	\includegraphics[width=0.48\textwidth]{pics/corpus_length.pdf}
 	\caption{Mean story length in number of words by generation. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories.} 
 	\label{fig:storylength}
 \end{figure}
@@ -168,7 +168,7 @@ While the linguistic changes across generations as a function of the original ev
 \textbf{Similarity of seeds and reproductions.} Of interest is the extent to which stories retain the gist or deviate from it. To assess the similarity of reproductions and their seed stories quantitatively, we computed the Jaccard distance between each reproduction and its generation 0 seed. Jaccard distance captures the amount of overlap between two stories in the following way: \[D_J(X,Y) = 1 - \frac{|X \cap Y|}{|X \cup Y|}\] where X is the reproduction and Y the respective original seed story. In this case, we took words as the basic unit over which distance was computed. Figure \ref{fig:jaccdistance} shows that $D_J$ increased across generations ($\beta = 0.05$, $SE = 0.00$, $t = 14.17$, $p < 0.0001$). This is not surprising given that as story length decreases, $D_J$ between seed and any of its reproductions necessarily increases. However, $D_J$ increased more strongly than expected if the difference between stories was only due to the decrease in length \ek{is this true?}, suggesting that information was lost across generations. This can also be observed qualitatively in the comparison of the representative examples (\ref{gen1}) and (\ref{gen5}) above.
 
 \begin{figure}[]
-	\includegraphics[width=0.48\textwidth]{graphs/jaccdistance.pdf}
+	\includegraphics[width=0.48\textwidth]{pics/jaccdistance.pdf}
 	\caption{Mean Jaccard distance between seed and reproductions by generation in strong (left) and weak (right) evidence condition. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories, red dots indicate the lowest possible distance given the mean length of the stories.} 
 	\label{fig:jaccdistance}
 \end{figure}
@@ -176,7 +176,7 @@ While the linguistic changes across generations as a function of the original ev
 \textbf{Proportion of Hedges.} As a proxy for vagueness, we extract the number of hedges per story relative to its length. The seed stories were designed to contain various hedges, such as "nearly", "about", "up to" or "allegedly". \ek{Figure ..} shows the proportion of hedges that remains throughout the generations. We can see that this proportion decreases over generations ($\beta = -0.01$, $SE = 0.00$, $t = -4.16$, $p < 0.0001$). The reproductions therefore appear to get less mitigated over iterations.\\
 
 \begin{figure}[]
-	\includegraphics[width=0.48\textwidth]{graphs/hedges_points.pdf}
+	\includegraphics[width=0.48\textwidth]{pics/hedges_points.pdf}
 	\caption{Mean proportion of hedges (by number of words) in strong (left) and weak (right) evidence condition. Error bars indicate bootstrapped 95\% CIs. Orange dots indicate generation mean, gray dots are individual stories.} 
 	\label{fig:hedges}
 \end{figure}
@@ -212,7 +212,7 @@ The difference between the conditions is far smaller (if existent at all) in the
 \ek{maybe make a note that there is no sign of convergence to .5}
 
 \begin{figure*}[]
-	\includegraphics[width=\textwidth]{graphs/subj_results_byquestion.pdf}
+	\includegraphics[width=\textwidth]{pics/subj_results_byquestion.pdf}
 	\caption{Mean ratings in strong (orange) and weak (green) evidence condition for each dimension (facets).} 
 	\label{fig:exp2results}
 \end{figure*}
